@@ -27,3 +27,7 @@ In order to combat this, I am creating a crowd-sourced app that will collect dat
 - **Login** - users must be registered to contribute, save settings, view historical data, etc.
 - **Database** - stores lot data, user registration, user settings
 - **WebSocket** - maintaining up-to-date survey data on lots
+
+## Rough Sketch
+
+![VERY rough sketch, seriously](VERY%20Rough%20Sketch.jpg)
