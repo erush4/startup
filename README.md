@@ -15,5 +15,15 @@ In order to combat this, I am creating a crowd-sourced app that will collect dat
 
 ### Technology Usage
 
-- HTML - Form the skeleton of the login page, map page, and settings page
-- CSS - 
+- **HTML** - skeleton of the login page, map page, and settings page
+- **CSS** - Aesthetics of each page, as well as formatting for different screen sizes/devices
+- **JavaScript/React** - Interactivity of the Survey, Login, Settings, and possibly the map
+- **Web Service** - Communicating with Backend for:
+    - Submitting survey data
+    - retrieving lot data
+
+  Possible communication with map service, depending on implementation
+
+- **Login** - users must be registered to contribute, save settings, view historical data, etc.
+- **Database** - stores lot data, user registration, user settings
+- **WebSocket** - maintaining up-to-date survey data on lots
