@@ -4,7 +4,7 @@ Every BYU student that drives to campus knows the agony of trying to find parkin
 
 In order to combat this, I am creating a crowd-sourced app that will collect data from users on the parking conditions. Users will be able to report the conditions of the parking lot they are in (how many spots are nearby, if the lot is full, etc.) This data will then be visible to others, helping them to decide which lots to try their luck in.
 
-### Key Features
+## Key Features
 
 - Login page
 - Map showing all BYU parking lots, sortable by type (A lot, G lot, Y lot, U lot...)
@@ -13,7 +13,7 @@ In order to combat this, I am creating a crowd-sourced app that will collect dat
 - Settings: allow users to determine which lots they want to view, how far in the past they want to view others' surveys, etc.
 - Embedded Google maps?
 
-### Technology Usage
+## Technology Usage
 
 - **HTML** - skeleton of the login page, map page, and settings page
 - **CSS** - Aesthetics of each page, as well as formatting for different screen sizes/devices
