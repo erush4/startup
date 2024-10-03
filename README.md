@@ -38,4 +38,7 @@ The main structure of the website is now in place.
 - **HTML tags** - Each page has a header containing a nav tag, as well as a footer. The head is also fully implemented. Body and main are also present. Other tags are also present. I have a second branch that stores a good chunk of the inputs in forms, but I haven't merged that yet since there wasn't any visual difference for the website. Let me know if I need to fix that.
 - **Links** - The nav bar/header at the top of each page lets you travel to the main 4 pages. At some point, I want to trim some of them off and change them a bit depending on whether or not the user is signed in, but for ease of grading they are all there. The two incomplete pages are linked to from the login page.
 - **Text** - Lots of the text I want to display will end up being in pop-up windows, sidebars, and whatever api I use for the map. However, there is enough text right now that you can see what the eventual vision is.
-- **Images** - There is a sample profile photo in the 
+- **Images** - There is a sample profile photo in the profile page; the logo I made is visible on the about page, and there are cats on the password reset/account creation pages. Plus the favicon.
+- **Login placeholder** - Yup, it's there, along with placeholder pages for password reset and account creation.
+- **Database** - The database will store the login info and settings for each user, as well as a few weeks of survey data that will be displayed on the map.
+- **WebSocket data** - The map should be updated in real time so long as I can get an api that allows that kind of thing. If you know of any good ones let me know.
