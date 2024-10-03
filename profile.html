@@ -27,10 +27,13 @@
                 <div> User email: <span>name@domain.tld</span></div>
             <h2>Settings</h2>
             <div>Select the lots to display on the map:</div>
-                <div><input type="checkbox"/>Y (Student) lots</div>
-                <div><input type="checkbox"/>G (Graduate) lots</div>
-                <div><input type="checkbox"/>A (Faculty) lots</div>
-                <div><input type="checkbox"/>U (Free) lots</div>
+                <form target="_self" method ="post">
+                <input type="checkbox" id="Y" /> <label for="Y">Y (Student) lots</label> <br/>
+                <input type="checkbox" id="G"/> <label for="G">G (Graduate) lots</label> <br/>
+                <input type="checkbox" id="A"/> <label for="A">A (Faculty) lots</label> <br/>
+                <input type="checkbox" id="U"/> <label for="U">U (Free) lots</label> <br/>
+                <input type="submit" value="Save"/>
+                </form>
             <br/>
             <div><button>Change Password</button></div>
             <div><button>Sign Out</button></div>
