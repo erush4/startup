@@ -1,0 +1,13 @@
+header{
+    background-color: midnightblue;
+    color: white;
+}
+h1{
+    font-family: sans-serif;
+}
+footer{
+    background-color: midnightblue;
+    color: white;
+    font-family: sans-serif;
+    font-size: small;
+}
