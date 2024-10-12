@@ -1,0 +1,20 @@
+header{
+    background-color: midnightblue;
+    color: white;
+}
+.navbar{
+    background-color: midnightblue;
+    color: white;
+    border-color: midnightblue;
+}
+.navbar-brand{
+    font-family:'Times New Roman', Times, serif;
+    font-weight: bolder;
+     width:10em
+}
+footer{
+    background-color: midnightblue;
+    color: white;
+    font-family: sans-serif;
+    font-size: small;
+}
