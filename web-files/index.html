@@ -4,7 +4,7 @@
         <meta charset = "UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/main.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
         <title>BYU ParkIt</title>
         <link rel= "icon" href="images/favicon.png"/>
     </head>
@@ -62,15 +62,14 @@
             </nav>            
         </header>
         <main class="container">
-            <img src="images/logo.png" alt="A picture of a blue car with the BYU Y logo on the hood." width="543" height="387"/>
-            <p>BYU ParkIt is an open source project with the goal of streamlining the process
-                of parking at BYU. The goal is to create a website that allows students to report
-                an approximate number of available parking spots nearby, then display these reports
-                in such a way that it is easier for students to know where they should try to park.
-                This is very much a work in progress; since this is for my CS 260 class, it should be 
-                at least functional by the end of the year (2024). If you see any bugs, feel free to
-                report them on github.
-            </p>
+            <iframe id="map" src="https://app.mapline.com/map/map_1ca15a1b/RnVkYUlvS0FpeEU0QnNEN0UvQ2k1TU9HSHBOVXVkVHB2cjZaVU" style="width:100%;height:70vh;" ></iframe>
+            <div style="font-size: 10px;">
+                <a href="https://mapline.com" target="_blank">Mapping by Mapline</a>
+            </div>
+            <h2>Sample Survey</h2>
+                <div>Parking lot will already be selected on the map</div>
+                <p>About how full would you say the parking lot is?</p>
+                <div>Empty<input type="range" min="0" max="10">No spots left</div>
         </main>
         <footer class="footer mt-auto py-3 bg-dark text-light">
             <div>Author: Ethan Rushforth</div>
