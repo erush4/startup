@@ -1,19 +1,15 @@
-header{
-    background-color: midnightblue;
-    color: white;
-}
-
 .navbar-brand{
-    font-family:'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     font-weight: bolder;
-    width: 10em;
+    font-size: x-large;
 }
 footer{
     background-color: midnightblue;
     color: white;
     font-family: sans-serif;
     font-size: small;
+
 }
 .logo{
-     padding-right: 5%;
+     width: 4rem;
 }
