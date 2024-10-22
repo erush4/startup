@@ -141,7 +141,7 @@ div{
 }
 
 How would you display an image with a hyperlink in HTML?
-<a href= "link"><img src="image.png"></a>
+ -a href= "link">img src="image.png"></a>
 
 In the CSS box model, what is the ordering of the box layers starting at the inside and working out?
 1) content
@@ -159,16 +159,16 @@ have to see it
 How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?
 - document.getELementById("byu").style.color= "green"
 
-What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, third level heading?
-1) <p>
-2) <li>
-3) <ul>
-4) <h2>
-5) <h1>
-6) <h3>
+What is the opening HTML tag for aparagraph, ordered list, unordered list, second level heading, first level heading, third level heading?
+1) p>
+2) li>
+3) ul>
+4) h2>
+5) h1>
+6) h3>
 
-How do you declare the document type to be html?'
-<!DOCTYPE html>
+How do you declare the document type to be html?
+!DOCTYPE html>
 
 What is valid javascript syntax for if, else, for, while, switch statements?
    if (condition) {
