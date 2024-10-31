@@ -6,4 +6,18 @@
 .logo{
      width: 4rem;
 }
+main {
+    margin:1em
+}
 
+@keyframes slide-in-right {
+    from {right: -100%;}
+    to {right: 0;}
+}
+.toast {
+    position: fixed;
+    right: 0;
+    animation-name: slide-in-right;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
