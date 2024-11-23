@@ -279,3 +279,12 @@ Port 443, 80, 22 is reserved for which protocol?
 
 What will the following code using Promises output when executed?
 - have to see the code first
+
+#11/2/24 Vite
+to create a vite project:
+```
+npm create vite@latest projectName -- --template react
+cd demoVite
+npm install
+npm run dev
+```
