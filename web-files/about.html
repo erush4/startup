@@ -61,15 +61,72 @@
                 </div>
             </nav>            
         </header>
-        <main class="container"> 
-            <p class="last-element">BYU ParkIt is an open source project with the goal of streamlining the process
-                of parking at BYU. The goal is to create a website that allows students to report
-                an approximate number of available parking spots nearby, then display these reports
-                in such a way that it is easier for students to know where they should try to park.
-                This is very much a work in progress; since this is for my CS 260 class, it should be 
-                at least functional by the end of the year (2024). If you see any bugs, feel free to
-                report them on github.
-            </p>
+        <main class="container">
+            <h1 style="margin-bottom: 1em; margin-left: 1em;">Help</h1> 
+            <div id="faq" class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" href="#whatis">
+                            What is BYU Parkit?
+                        </a>
+                    </div>
+                    <div id="whatis" class="accordion-collapse collapse show" data-bs-parent="#faq">
+                        <div class="accordion-body">
+                            BYU Parkit is an open-source, project that aims to streamline the process
+                            of parking at BYU. Students, teachers, and guests can use the app to find 
+                            available parking spots, then record how full the lot is to help other visitors.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" href="#howdoes">
+                            How do I use BYU Parkit?
+                        </a>
+                    </div>
+                    <div id="howdoes" class="accordion-collapse collapse" data-bs-parent="#faq">
+                        <div class="accordion-body">
+                            Right now, the website isn't functional. But don't worry!
+                            It should be fully up and running before December 5th.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" href="#whatdo">
+                            What do I do if I notice a bug?
+                        </a>
+                    </div>
+                    <div id="whatdo" class="accordion-collapse collapse" data-bs-parent="#faq">
+                        <div class="accordion-body">
+                            For now, nothing. Once the site is fully up, you can submit
+                            a ticket on Github and I'll try to adress it as soon as possible.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" href="#howdo">
+                            This site is great! How do I support this?
+                        </a>
+                    </div>
+                    <div id="howdo" class="accordion-collapse collapse" data-bs-parent="#faq">
+                        <div class="accordion-body">
+                            The most important thing you can do is make sure you use the 
+                            app when it comes out! Because all the data will be 
+                            crowdsourced, it's really important that we get a large user
+                            base. Share it with your friends!
+                        </div>
+                        <div class="accordion-body">
+                            Right now, this is a class assignment, so there isn't really much
+                            that can be done. Once the site is up and running, I'll be maintaining it
+                            on my own and for free, so I might put together a dev team or accept
+                            donations. If you're interested in that (and I decide to do it), I'll
+                            put some sort of contact info here and you can reach out to me.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
         <footer class="footer mt-auto py-3 bg-dark text-light">
             <div>Author: Ethan Rushforth</div>
