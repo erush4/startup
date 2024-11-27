@@ -42,3 +42,11 @@ The main structure of the website is now in place.
 - **Login placeholder** - Yup, it's there, along with placeholder pages for password reset and account creation.
 - **Database** - The database will store the login info and settings for each user, as well as a few weeks of survey data that will be displayed on the map.
 - **WebSocket data** - The map should be updated in real time so long as I can get an api that allows that kind of thing. If you know of any good ones let me know.
+
+# CSS Deliverable
+- **Header, footer, and main content body** - present, footer does not overlap content but will stick to the bottom of the page.
+- **Navigation elements** - created navbar, aligned items and brand name to opposite sides, including logo.
+- **Responsive to window resizing** - app is designed to be used on smartphones, but the map and other elements should scale to fit larger screens as well. Navbar will change on smaller screens.
+- **Application elements** - reasonable contrast and whitespace, important elements are in a different color, does not hurt to look at
+- **Application text content** - consistent fonts, resized and indented appropriately.
+- **Application images** - appropriately resized and aligned.
