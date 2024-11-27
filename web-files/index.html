@@ -35,7 +35,7 @@
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                     <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
                                 </svg>
-                                About
+                                Help
                             </a>
                         </li>
                         <li class="nav-item">
@@ -80,13 +80,14 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Sample Survey</h4>
+                        <h4 class="modal-title">Report Lot Conditions</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        <div>Parking lot will already be selected on the map</div>
-                        <p>About how full would you say the parking lot is?</p>
-                        <div class="last-element">Empty<input type="range" min="0" max="10">No spots left</div>
+                        <form>
+                            <div>About how many open spots would you say there are around you?</div>
+                            <div >Completely Empty <input type="range" min="0" max="10">Completely Full</div>\
+                        </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

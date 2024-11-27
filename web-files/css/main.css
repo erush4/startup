@@ -6,6 +6,9 @@
 .logo{
      width: 4rem;
 }
+body{
+    background-color: rgb(190, 188, 188);
+}
 main {
     margin-top: 1em;
     margin-bottom: 1em;
