@@ -17,6 +17,9 @@ main {
     from {right: -100%;}
     to {right: 0;}
 }
+#profile{
+    margin:10px;
+}
 .toast {
     position: fixed;
     right: 0;
@@ -52,6 +55,10 @@ main {
     background-color: whitesmoke;
     border-color: grey;
     margin-bottom: 0.5em;
+}
+.setting{
+    padding-inline: 5%;
+    margin-bottom: 1em;
 }
 footer{
     padding-left: 1em;
