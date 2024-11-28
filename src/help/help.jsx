@@ -1,10 +1,10 @@
 import React from 'react';
-import './app.css'
-
+import './help.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 export function Help() {
     return(
-        <main>
-            <h1 style="margin-bottom: 1em; margin-left: 1em;">Help</h1> 
+        <main className="container">
+            <h1>Help</h1> 
             <div id="faq" className="accordion">
                 <div className="accordion-item">
                     <div className="accordion-header">
