@@ -4,7 +4,7 @@ import './app.css';
 
 export default function App() {
   return (
-    <div className="body d-flex flex-column h-100">
+    <div className="body d-flex flex-column">
       <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark container-fluid">
             <div class="container-fluid">
@@ -57,12 +57,12 @@ export default function App() {
             </div>
         </nav>            
       </header> 
-      <main class="container">
+      <main>
         <div>content here</div>
       </main>
       <footer class="footer mt-auto py-3 bg-dark text-light">
         <div>Author: Ethan Rushforth</div>
-        <div><a href="https://github.com/erush4/startup">Github Repository</a></div>
+            <div><a href="https://github.com/erush4/startup">Github Repository</a></div>
       </footer>
     </div>
   )
