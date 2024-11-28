@@ -1,6 +1,7 @@
 import React from 'react';
-import './help.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import './help.css'
 export function Help() {
     return(
         <main className="container">

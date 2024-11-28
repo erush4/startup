@@ -5,6 +5,7 @@ import { Map } from './map/map';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './app.css';
 
 export default function App() {
