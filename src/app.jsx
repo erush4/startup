@@ -70,6 +70,7 @@ export default function App() {
         <Route path='/profile' element={<Profile/>}  />
         <Route path='/map' element={<Map/>}  />
         <Route path='/signin' element={<Signin/>} exact />
+        <Route path='/*' element={<NotFound/>} />
       </Routes>
       <footer className="footer mt-auto py-3 bg-dark text-light">
         <div>Author: Ethan Rushforth</div>
