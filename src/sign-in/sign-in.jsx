@@ -8,14 +8,14 @@ export function Signin(){
         <main className="container">
         <div id="outerBox">
             <div className="sign-in">
-                <h2 class>Sign in to your account</h2>
+                <h2 >Sign in to your account</h2>
                 <form className="form-control">
                     <div className="row rw">
-                        <label for="username" className="form-label">Username: </label>
+                        <label htmlFor="username" className="form-label">Username: </label>
                         <input type="text" id="username" className="form-control" placeholder="Enter username" />
                     </div>
                     <div className="row rw">
-                        <label for="password" className="form-label">Password: </label>
+                        <label htmlFor="password" className="form-label">Password: </label>
                         <input type="password" id="password" className="form-control" placeholder="Enter password"/>                        </div>
                     
                     </form>
