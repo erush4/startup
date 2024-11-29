@@ -5,3 +5,9 @@
     padding-inline: 5%;
     margin-bottom: 1em;
 }
+hr{
+    color:black;
+}
+button {
+    border-color:black;
+}
