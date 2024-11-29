@@ -11,11 +11,13 @@ export function Map(){
                 <span className="me-auto">Map may load slowly. Please be patient.</span>
                 <button type="button" className="btn-close" data-bs-dismiss="toast"></button>
             </div>
-        </div>      
-        <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
-            Report Lot Conditions
-        </button>
-        <iframe id="map" src="https://app.mapline.com/map/map_1ca15a1b/RnVkYUlvS0FpeEU0QnNEN0UvQ2k1TU9HSHBOVXVkVHB2cjZaVU" ></iframe>
+        </div>    
+        <div> 
+            <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
+                Report Lot Conditions
+            </button>
+            <iframe id="map" src="https://app.mapline.com/map/map_1ca15a1b/RnVkYUlvS0FpeEU0QnNEN0UvQ2k1TU9HSHBOVXVkVHB2cjZaVU" ></iframe>  
+        </div>
         <div id="mapLabel">
             <a href="https://mapline.com" target="_blank">Mapping by Mapline</a>
         </div>

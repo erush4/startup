@@ -3,16 +3,17 @@
     to {right: 0;}
 }
 .toast {
-    position: fixed;
+    position: absolute;
     z-index: 100;
     right: 0;
     animation-name: slide-in-right;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-#LotConditions{
+#surveyButton{
     z-index: 99;
      margin: 1em;
+    position: absolute;
 }
 #map{
     width:100%;
