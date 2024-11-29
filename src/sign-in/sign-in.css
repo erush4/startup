@@ -25,3 +25,9 @@
     border-color: grey;
     margin-bottom: 0.5em;
 }
+#createLink {
+    text-align: center;
+}
+#outerBox {
+    margin-top: 5%;
+}
