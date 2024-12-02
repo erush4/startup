@@ -1,31 +1,26 @@
 import React from 'react';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './sign-in.css';
 
-export function Signin(){
-    return (
-        <main className="container">
-        <div id="outerBox">
-            <div className="sign-in">
-                <h2 >Sign in to your account</h2>
-                <form className="form-control">
-                    <div className="row rw">
-                        <label htmlFor="username" className="form-label">Username: </label>
-                        <input type="text" id="username" className="form-control" placeholder="Enter username" />
-                    </div>
-                    <div className="row rw">
-                        <label htmlFor="password" className="form-label">Password: </label>
-                        <input type="password" id="password" className="form-control" placeholder="Enter password"/>                        </div>
-                    
-                    </form>
-                <div className="row">
-                    <button className="btn btn-primary" type="submit">Sign In</button>
-                    <a href="lost-password.html">I forgot my password</a>
-                </div>
-            </div> 
-            <p id="createLink">Don't have an account? Create one <a href="create-account.html">here</a></p>
-        </div>
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { AuthState } from './authState';
+
+export function Signin({ userName, authState, onAuthChange }) {
+  return (
+    <main className='container-fluid bg-secondary text-center'>
+      <div>
+        {authState !== AuthState.Unknown && <h1>Welcome to Simon</h1>}
+        {authState === AuthState.Authenticated && (
+          <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+        )}
+        {authState === AuthState.Unauthenticated && (
+          <Unauthenticated
+            userName={userName}
+            onLogin={(loginUserName) => {
+              onAuthChange(loginUserName, AuthState.Authenticated);
+            }}
+          />
+        )}
+      </div>
     </main>
-    );
+  );
 }
