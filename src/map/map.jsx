@@ -5,21 +5,13 @@ import './map.css';
 
 export function Map(){
     return (
-        <main className="container-fluid">
-        <div className="toast show">
-            <div className="toast-header">
-                <span className="me-auto">Map may load slowly. Please be patient.</span>
-                <button type="button" className="btn-close" data-bs-dismiss="toast"></button>
-            </div>
-        </div>    
-        <div> 
+        <main className="container-fluid">    
+        <div id ="map"> 
             <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
                 Report Lot Conditions
             </button>
-            <iframe id="map" src="https://app.mapline.com/map/map_1ca15a1b/RnVkYUlvS0FpeEU0QnNEN0UvQ2k1TU9HSHBOVXVkVHB2cjZaVU" ></iframe>  
-        </div>
-        <div id="mapLabel">
-            <a href="https://mapline.com" target="_blank">Mapping by Mapline</a>
+                <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
+                <p>sample survey data will be displayed here:</p>
         </div>
         <div className="modal" id="surveyModal">
             <div className="modal-dialog">
