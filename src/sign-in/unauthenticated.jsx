@@ -7,17 +7,12 @@ import Button from 'react-bootstrap/Button'
 export function Unauthenticated(props){
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
-  const [displayError, setDisplayError] = React.useState(null);
 
   async function loginUser() {
     localStorage.setItem('userName', userName);
     props.onLogin(userName);
   }
 
-  async function createUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
-  }
     return (
         <main className="container">
         <div id="outerBox">

@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Unauthenticated } from './sign-in/unauthenticated';
 import { Map } from './map/map';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
@@ -8,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './app.css';
 import { AuthState } from './sign-in/authState';
+import { Signin } from './sign-in/sign-in';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -79,7 +79,7 @@ export default function App() {
         <Route 
             path='/Signin' 
             element={
-                <Unauthenticated
+                <Signin
                     userName={userName}
                     authState={authState}
                     onAuthChange={(userName, authState) => {
@@ -90,7 +90,12 @@ export default function App() {
             } exact 
         />
         <Route path='/help' element={<Help/>}  />
-        <Route path='/profile' element={<Profile/>}  />
+        <Route 
+            path='/profile' 
+            element={<Profile
+                userName={userName}
+            />}  
+        />
         <Route path='/map' element={<Map/>}  />
         <Route path='/*' element={<NotFound/>} />
       </Routes>
