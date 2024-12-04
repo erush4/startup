@@ -29,7 +29,7 @@ export function Unauthenticated(props){
                     
                     </form>
                 <div className="row">
-                    <Button variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
+                    <Button class="thing" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
                     <a href="lost-password.html">I forgot my password</a>
                 </div>
             </div> 
