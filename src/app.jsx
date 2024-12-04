@@ -84,7 +84,7 @@ export default function App() {
                     authState={authState}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
-                        setUserName(userName);
+                        setUserName
 ;                    }}
                 />
             } exact 
@@ -114,5 +114,5 @@ export default function App() {
 }
 
 function NotFound() {
-    return <main className='container-fluid bg-secondary text-center'>404: Return to sender. Address unknown.</main>;
+    return <main className='container-fluid text-center'>404: Return to sender. Address unknown.</main>;
   }
