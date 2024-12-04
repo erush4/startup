@@ -10,7 +10,7 @@ export function Signin({ userName, authState, onAuthChange }) {
       <div>
         {authState === AuthState.Unknown && <h1>Something's wrong here...</h1>}
         {authState === AuthState.Authenticated && (
-          <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+          <Authenticated/>
         )}
         {authState === AuthState.Unauthenticated && (
           <Unauthenticated

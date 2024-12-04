@@ -3,11 +3,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './profile.css';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { AuthState } from '../sign-in/authState';
 
 export function Profile(props){
+    let navigate = useNavigate;
     function signout() {
         localStorage.removeItem('userName');
-        props.onLogout();
+        props.onAuthChange(props.userName, AuthState.Unauthenticated);
       }
     return (
         <main className="container">
@@ -54,7 +57,14 @@ export function Profile(props){
             </form>
             <div><button type="button" className="btn btn-secondary" >Apply</button></div>
         <hr />
-            <div><Button variant='primary' onClick={() => signout()} >Sign Out</Button></div>
+            <div><Button variant='primary' 
+                onClick={
+                    () => {
+                        signout(); 
+                        location.href="/signin"
+                    }
+                }
+            >Sign Out</Button></div>
         </main>
     );
 }

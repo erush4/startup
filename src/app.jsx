@@ -84,7 +84,7 @@ export default function App() {
                     authState={authState}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
-                        setUsername(userName);
+                        setUserName(userName);
 ;                    }}
                 />
             } exact 
@@ -94,6 +94,11 @@ export default function App() {
             path='/profile' 
             element={<Profile
                 userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                    setAuthState(authState);
+                    setUserName(userName);
+                }}
             />}  
         />
         <Route path='/map' element={<Map/>}  />
