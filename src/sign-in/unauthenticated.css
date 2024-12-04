@@ -18,11 +18,14 @@
     margin-bottom: 0.75rem;
     text-align: left;
     font-weight: bold;
+    overflow:auto
 }
 .form-control{
     padding-inline: 6%;
     background-color: whitesmoke;
     border-color: grey;
+    padding-bottom: 0;
+    padding-inline: 1em;
     margin-bottom: 0.5em;
 }
 #createLink {
@@ -30,4 +33,7 @@
 }
 #outerBox {
     margin-top: 5%;
+}
+.btn {
+    padding-inline: 0em;
 }

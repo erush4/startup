@@ -3,6 +3,10 @@
     font-weight: bolder;
     font-size: x-large;
 }
+.navbar{
+    padding:0;
+    min-width: 294px;
+}
 svg{
     margin-inline: .2em;
 }
@@ -18,6 +22,7 @@ body{
 main {
     margin-top: 1em;
     margin-bottom: 1em;
+    min-width: 250px
 }
 footer{
     padding-left: 1em;

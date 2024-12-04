@@ -1,8 +1,8 @@
 import React from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './unauthenticated.css';
 import Button from 'react-bootstrap/Button'
+import './unauthenticated.css';
 
 export function Unauthenticated(props){
   const [userName, setUserName] = React.useState(props.userName);
