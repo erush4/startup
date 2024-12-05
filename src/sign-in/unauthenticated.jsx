@@ -25,15 +25,15 @@ export function Unauthenticated(props){
                     </div>
                     <div className="row rw">
                         <label htmlFor="password" className="form-label">Password: </label>
-                        <input type="password" id="password" className="form-control" onChange={(c) => setPassword(c.target.value)} placeholder="Enter password"/>                        </div>
-                    
-                    </form>
+                        <input type="password" id="password" className="form-control" onChange={(c) => setPassword(c.target.value)} placeholder="Enter password"/>
+                    </div>
+                </form>
                 <div className="row">
-                    <Button class="thing" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
+                    <Button className="thing" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
                     <a href="lost-password.html">I forgot my password</a>
                 </div>
             </div> 
-            <p id="createLink">Don't have an account? Create one <a href="create-account.html">here</a></p>
+            <p id="createLink">Don't have an account? Create one <a href="/CreateAccount">here</a></p>
         </div>
     </main>
     );

@@ -8,6 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './app.css';
 import { AuthState } from './sign-in/authState';
 import { Signin } from './sign-in/sign-in';
+import { CreateAccount } from './sign-in/create-account';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -24,7 +25,7 @@ export default function App() {
                     <img className="logo navbar-brand" src="logo.png" height="100%" /> 
                     BYU ParkIt
                 </span>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <button className="navbar-toggler" title="navbar-toggle"type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
@@ -103,6 +104,7 @@ export default function App() {
         />
         <Route path='/map' element={<Map/>}  />
         <Route path='/*' element={<NotFound/>} />
+        <Route path='/CreateAccount' element={<CreateAccount/>}/>
       </Routes>
       <footer className="footer mt-auto py-3 bg-dark text-light">
         <div>Author: Ethan Rushforth</div>

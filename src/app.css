@@ -3,6 +3,9 @@
     font-weight: bolder;
     font-size: x-large;
 }
+.navbar-nav{
+    margin-top:auto;
+}
 .navbar{
     padding:0;
     min-width: 294px;
