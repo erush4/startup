@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { AuthState } from '../sign-in/authState';
 
 export function Profile(props){
-    let navigate = useNavigate;
     function signout() {
         localStorage.removeItem('userName');
         props.onAuthChange(props.userName, AuthState.Unauthenticated);
@@ -18,7 +17,7 @@ export function Profile(props){
             <hr />
             <h2>Info</h2>
                 <div> User Name: <span>{props.userName}</span></div>
-                <div> User email: <span>name@domain.tld</span></div>
+                <div> User email: <span>{props.userEmail}</span></div>
                 <div><button type="button" className="btn btn-warning">Change Password</button></div>
         <hr />
             <h2>Settings</h2>

@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './app.css';
 import { AuthState } from './sign-in/authState';
 import { Signin } from './sign-in/sign-in';
-import { CreateAccount } from './sign-in/create-account';
+import { CreateAccount } from './create-account/create-account';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -104,7 +104,14 @@ export default function App() {
         />
         <Route path='/map' element={<Map/>}  />
         <Route path='/*' element={<NotFound/>} />
-        <Route path='/CreateAccount' element={<CreateAccount/>}/>
+        <Route path='/CreateAccount' element={<CreateAccount
+            userName={userName}
+            authState={authState}
+            onAuthChange={(userName, authState) => {
+                setAuthState(authState);
+                setUserName(userName);
+            }}
+        />}/>
       </Routes>
       <footer className="footer mt-auto py-3 bg-dark text-light">
         <div>Author: Ethan Rushforth</div>
