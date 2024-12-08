@@ -14,6 +14,13 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
+        const [settings, setSettings]= React.useState({
+            ylot: false,
+            alot: false,
+            glot: false,
+            ulot: false,
+            anonymous: false
+        })
 
   return (
     <BrowserRouter>
@@ -96,6 +103,7 @@ export default function App() {
             element={<Profile
                 userName={userName}
                 authState={authState}
+                settings={settings}
                 onAuthChange={(userName, authState) => {
                     setAuthState(authState);
                     setUserName(userName);

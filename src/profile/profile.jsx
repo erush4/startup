@@ -2,15 +2,25 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './profile.css';
-import { Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Button, FormGroup, FormLabel } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
 
 export function Profile(props){
+    cont[settings, setSettings] = React.useState({
+        ylot: true,
+        alot: false,
+        glot: false,
+        ulot: false,
+        anonymous: false
+    })
     function signout() {
         localStorage.removeItem('userName');
         props.onAuthChange(props.userName, AuthState.Unauthenticated);
       }
+    function formSubmit() {
+        props.setSettings()
+    }
     return (
         <main className="container">
             <h1>Profile</h1>
@@ -18,40 +28,32 @@ export function Profile(props){
             <h2>Info</h2>
                 <div> User Name: <span>{props.userName}</span></div>
             <h2>Settings</h2>
-            <form>
                 <div>Spots to display on map:</div>
-                <div className="setting">
-                    <div className="form-check">
-                        <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="Ylot"/>Y (Student)
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="Glot"/>G (Graduate)
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="Alot"/>A (Faculty)
-                        </label>
-                    </div>
-                    <div className="form-check">
-                        <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="Ulot"/>U (Free)
-                        </label>
-                    </div>
-                </div>
-                <div>Privacy:</div>
-                <div className="setting">
-                    <div className="form-check">
-                        <label className="form-check-label">
-                            <input type="checkbox" className="form-check-input" name="anonymous"/>Submit surveys anonymously
-                        </label>
-                    </div>
-                </div>
-            </form>
-            <div><button type="button" className="btn btn-secondary" >Apply</button></div>
+            <Form>
+                <FormGroup>
+                    <Form.Switch label='Y (Student)'/>
+                </FormGroup>
+                <FormGroup>
+                    <Form.Switch label='G (Graduate)'/>
+                </FormGroup>
+                <FormGroup>
+                    <Form.Switch label='A (Employee)'/>
+                </FormGroup>
+                <FormGroup>
+                    <Form.Switch label='U (Free/Unmarked)'/>
+                </FormGroup>
+            </Form>
+            <div>Privacy:</div>
+            <Form>
+                <FormGroup>
+                    <Form.Switch label='Submit surveys anonymously' />
+                    <Form.Text>Surveys will still be linked to your account, but your username will not be displayed on the map.</Form.Text>
+                </FormGroup>
+            </Form>
+            <Button variant='secondary' type='submit'
+                onClick={
+                    () => formSubmit()
+                }>Apply</Button>
         <hr />
             <div><Button variant='primary' 
                 onClick={
