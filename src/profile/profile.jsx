@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
 
 export function Profile(props){
-    cont[settings, setSettings] = React.useState({
+    const[settings, setSettings] = React.useState({
         ylot: true,
         alot: false,
         glot: false,
