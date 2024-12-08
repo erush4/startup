@@ -34,3 +34,6 @@
 #outerBox {
     margin-top: 5%;
 }
+.sign-in-button{
+    min-width: 200px;
+}

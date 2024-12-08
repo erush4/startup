@@ -17,9 +17,6 @@ export function Profile(props){
             <hr />
             <h2>Info</h2>
                 <div> User Name: <span>{props.userName}</span></div>
-                <div> User email: <span>{props.userEmail}</span></div>
-                <div><button type="button" className="btn btn-warning">Change Password</button></div>
-        <hr />
             <h2>Settings</h2>
             <form>
                 <div>Spots to display on map:</div>

@@ -5,7 +5,6 @@ import { Form } from "react-bootstrap";
 import { AuthState } from "../sign-in/authState";
 
 export function CreateAccount(props){
-    const [email, setEmail] = React.useState('')
     const [userName, setUserName] = React.useState(props.userName);
     const [password, setPassword] = React.useState('');
     const [passwordVerify, setPasswordVerify] = React.useState('');
@@ -40,11 +39,6 @@ export function CreateAccount(props){
                     <Form.Text>This is the name people will see associated with your surveys.</Form.Text>
                 </Form.Group>
                 <Form.Group className='mb-3'>
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="example@email.com" value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                    <Form.Text>This will be used for account recovery if you lose your password.</Form.Text>
-                </Form.Group >
-                <Form.Group className='mb-3'>
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="password" value={password} onChange={(p) => setPassword(p.target.value)}></Form.Control>
                     <Form.Text>Never reuse a password from another website.</Form.Text>
@@ -55,7 +49,7 @@ export function CreateAccount(props){
                     <PasswordVerification />
                 </Form.Group>
             </Form>
-            <Button variant='primary' type='submit' onClick={() => {createUser(); location.href='/Map'}} disabled={!userName || !password || !email || passwordVerify != password}>Create</Button>
+            <Button variant='primary' type='submit' onClick={() => {createUser(); location.href='/Map'}} disabled={!userName || !password || passwordVerify != password}>Create</Button>
         </div>
         </main>
     )
