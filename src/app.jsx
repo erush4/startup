@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Map } from './map/map';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
@@ -14,14 +15,20 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-        const [settings, setSettings]= React.useState({
-            ylot: false,
-            alot: false,
-            glot: false,
-            ulot: false,
-            anonymous: false
-        })
-
+    const [settings, setSettings]= React.useState({
+        ylot: true,
+        alot: false,
+        glot: false,
+        ulot: false,
+        anonymous: false
+    })
+    useEffect(
+        () => {
+            const prevSettings = localStorage.getItem('settings');
+            if (prevSettings) {
+                setSettings(JSON.parse(prevSettings));
+            }
+        } , [])
   return (
     <BrowserRouter>
     <div className="body d-flex flex-column">
@@ -92,7 +99,7 @@ export default function App() {
                     authState={authState}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
-                        setUserName
+                        setUserName(userName)
 ;                    }}
                 />
             } exact 
@@ -104,6 +111,9 @@ export default function App() {
                 userName={userName}
                 authState={authState}
                 settings={settings}
+                applySettings={(settings) =>
+                    setSettings(settings)
+                }
                 onAuthChange={(userName, authState) => {
                     setAuthState(authState);
                     setUserName(userName);

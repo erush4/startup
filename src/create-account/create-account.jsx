@@ -5,8 +5,7 @@ import { Form } from "react-bootstrap";
 import { AuthState } from "../sign-in/authState";
 
 export function CreateAccount(props){
-    const [userName, setUserName] = React.useState(props.userName);
-    const [password, setPassword] = React.useState('');
+
     const [passwordVerify, setPasswordVerify] = React.useState('');
 
     function PasswordVerification(){
