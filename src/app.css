@@ -1,0 +1,32 @@
+.navbar-brand{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    font-size: x-large;
+}
+.navbar-nav{
+    margin-top:auto;
+}
+.navbar{
+    padding:0;
+    min-width: 294px;
+}
+svg{
+    margin-inline: .2em;
+}
+.logo{
+     width: 4rem;
+}
+body{
+    background-color: rgb(190, 188, 188);
+}
+.body{
+    height: 100vh;
+}
+main {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    min-width: 250px
+}
+footer{
+    padding-left: 1em;
+}
