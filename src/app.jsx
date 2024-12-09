@@ -12,7 +12,6 @@ import { CreateAccount } from './create-account/create-account';
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    console.log(userName)
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
     const [anonymous, setAnonymous]= React.useState(JSON.parse(localStorage.getItem('anonymous')) || false)
@@ -106,7 +105,9 @@ export default function App() {
                 }}
             />}  
         />
-        <Route path='/map' element={<Map userName={userName}/>}  />
+        <Route path='/map' element={<Map 
+            userName={userName}
+            anonymous= {anonymous} /> } />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/CreateAccount' element={<CreateAccount
             userName={userName}

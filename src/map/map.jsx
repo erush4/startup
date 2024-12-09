@@ -10,7 +10,7 @@ import './map.css';
 
 
 export function Map(props){
-    
+    const[username, setUserName] = useState(props.userName)
     const location = [0,0];
     const [value, setValue] = useState(5)
     const [dataPoints, setDataPoints] = 
@@ -18,8 +18,14 @@ export function Map(props){
             () => {
                 const savedData = localStorage.getItem('data'); 
                 return savedData ? JSON.parse(savedData) : []; });
-    const username = props.userName;
 
+
+    useEffect(()=>{
+        if (props.anonymous) {
+            setUserName('Anon');
+        }
+    },[props.anonymous]
+)
     useEffect(
         () => { 
             localStorage.setItem('data', JSON.stringify(dataPoints)); 
@@ -32,7 +38,7 @@ export function Map(props){
                 setDataPoints((prevDataPoints => [...prevDataPoints, newDataPoint]));
             }, 10000);
             return () => clearInterval(interval);
-        })        
+        }, [])        
 
     function addData() {
         setDataPoints((prevDataPoints => [...prevDataPoints, new DataPoint(value, location, username )]))

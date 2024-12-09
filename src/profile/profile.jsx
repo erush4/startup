@@ -17,6 +17,7 @@ export function Profile(props){
     function signout(){
         localStorage.removeItem('userName');
         localStorage.removeItem('anonymous');
+        localStorage.removeItem('data');
         props.onAuthChange(props.userName, AuthState.Unauthenticated);
       }
     return (
