@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './profile.css';
@@ -6,15 +7,32 @@ import { Button, FormGroup} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
 
+function Confirm (props){
+    if (props.confirm === true){
+        return (
+            <Form.Text className='saved'>Saved!</Form.Text>
+        )
+    } else if (props.confirm === false) {
+        return (
+            <Form.Text className='unsaved'>Changes may be lost</Form.Text>
+        )
+    }
+}
 export function Profile(props){
-    const[settings, setSettings] = React.useState(props.settings)
+    
+    const [settings, setSettings] = useState(null)
+
     const handleChange = (event) => {
+        if (settings) {
          const { name, checked } = event.target; 
          setSettings((prev) => ({
              ...prev, [name]: checked 
             }));
+        confirm = false;
+        }
     }
-    function signout() {
+    
+    function signout(){
         localStorage.removeItem('userName');
         localStorage.removeItem('settings');
         props.onAuthChange(props.userName, AuthState.Unauthenticated);
@@ -22,7 +40,13 @@ export function Profile(props){
     function applySettings(){
         props.applySettings(settings);
         localStorage.setItem('settings', JSON.stringify(settings));
+        confirm = true;
     }
+    useEffect(() => {
+        if (props.settings) { setSettings(props.settings); } }, [props.settings]) 
+        if (!settings){ 
+           return <div>Loading...</div>; 
+       }
     return (
         <main className="container">
             <h1>Profile</h1>
@@ -56,15 +80,18 @@ export function Profile(props){
                 onClick={
                     () => applySettings()
                 }>Apply</Button>
+            <div>
+                <Confirm confirm={confirm}/>
+            </div>
         <hr />
-            <div><Button variant='primary' 
+            <Button variant='primary' 
                 onClick={
                     () => {
                         signout(); 
                         location.href="/signin"
                     }
                 }
-            >Sign Out</Button></div>
+            >Sign Out</Button>
         </main>
     );
 }

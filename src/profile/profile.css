@@ -8,3 +8,9 @@ Form{
 hr{
     color:black;
 }
+.saved{
+    color: rgb(2, 87, 2);
+}
+.unsaved {
+    color: rgb(189, 10, 10)
+}

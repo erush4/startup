@@ -15,12 +15,13 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-    const [settings, setSettings]= React.useState({
+    const [settings, setSettings]= React.useState(localStorage.getItem('settings') || {
         ylot: true,
-        alot: false,
         glot: false,
+        alot: false,
         ulot: false,
         anonymous: false
+
     })
     useEffect(
         () => {
@@ -120,7 +121,7 @@ export default function App() {
                 }}
             />}  
         />
-        <Route path='/map' element={<Map/>}  />
+        <Route path='/map' element={<Map settings={settings}/>}  />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/CreateAccount' element={<CreateAccount
             userName={userName}

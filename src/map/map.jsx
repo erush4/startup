@@ -2,8 +2,28 @@ import React from 'react';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
+import { useState, useEffect } from 'react';
 
-export function Map(){
+export function Map(props){
+    const [settings, setSettings] = useState(null)
+
+    function Displaying() {
+        let string = '';
+        Object.entries(settings)
+        .filter(([key, value]) => key !== 'anonymous') // Exclude 'anonymous' 
+        .forEach(([key, value]) =>{
+            if (value === true) {
+                string = string + key + ' ';
+            }
+        });
+        return <span>{string}</span>;
+    }
+
+    useEffect(() => {
+        if (props.settings) { setSettings(props.settings); } }, [props.settings]) 
+        if (!settings){ 
+        return <div>Loading...</div>; 
+    }
     return (
         <main className="container-fluid">    
         <div id ="map"> 
@@ -11,6 +31,7 @@ export function Map(){
                 Report Lot Conditions
             </button>
                 <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
+                <p>Currently displaying spots in: <Displaying/> </p>
                 <p>sample survey data will be displayed here:</p>
         </div>
         <div className="modal" id="surveyModal">
