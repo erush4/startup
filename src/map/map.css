@@ -15,5 +15,6 @@ span{
     font-size: 15px;
 }
 p{
-    margin:1em;
+    margin-left:1em;
+    font-size: small;
 }
