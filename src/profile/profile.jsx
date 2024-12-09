@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './profile.css';
-import { Button, } from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
 

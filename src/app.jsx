@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Map } from './map/map';
 import { Profile } from './profile/profile';
@@ -11,10 +11,10 @@ import { Signin } from './sign-in/sign-in';
 import { CreateAccount } from './create-account/create-account';
 
 export default function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const [userName, setUserName] = useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
-    const [authState, setAuthState] = React.useState(currentAuthState);
-    const [settings, setSettings]= React.useState(localStorage.getItem('settings') || {
+    const [authState, setAuthState] = useState(currentAuthState);
+    const [settings, setSettings]= useState({
         ylot: true,
         glot: false,
         alot: false,
@@ -22,6 +22,7 @@ export default function App() {
         anonymous: false
 
     })
+    console.log(settings)
     useEffect(
         () => {
             const prevSettings = localStorage.getItem('settings');

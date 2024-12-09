@@ -3,8 +3,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
 import { useState, useEffect } from 'react';
-import { DataPoint } from './dataPoint';
-import { Form } from 'react-bootstrap';
 import {Survey} from './survey/survey.jsx';
 
 export function Map(props){

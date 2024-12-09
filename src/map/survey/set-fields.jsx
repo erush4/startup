@@ -1,20 +1,21 @@
 import React, {useEffect, useState} from 'react'
 import { Form, Button } from 'react-bootstrap';
 export function SelectFields(props){
-    const[fields, setFields] = useState(props.settings)
+    const[types, setTypes] = useState(props.types)
     useEffect(() => {
-        if (props.settings) { setFields(props.settings); } }, [props.settings]) 
-        if (!fields){ 
+        if (props.types) { setTypes(props.types); } }, [props.types]) 
+        if (!types){ 
         return <div>Loading...</div>; 
     }
     function handleChange (event){
-        if (fields) {
+        if (types) {
             const { name, checked } = event.target; 
-            setFields((prev) => ({
+            setTypes((prev) => ({
                 ...prev, [name]: checked 
                }));
            }
     } 
+
     return (
         <div className="modal-content">
             <div className="modal-header">
@@ -24,16 +25,16 @@ export function SelectFields(props){
             <div className="modal-body">
                 <Form>
                     <Form.Group>
-                        <Form.Check label='Y (Student)' name="ylot" defaultChecked={fields.ylot} onChange={handleChange}/>
+                        <Form.Check label='Y (Student)' name="ylot" defaultChecked={types.ylot}  onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Check label='G (Graduate)' name="glot" defaultChecked={fields.glot} onChange={handleChange}/>
+                        <Form.Check label='G (Graduate)' name="glot" defaultChecked={types.glot}  onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Check label='A (Employee)' name="alot" defaultChecked={fields.alot} onChange={handleChange}/>
+                        <Form.Check label='A (Employee)' name="alot" defaultChecked={types.alot}  onChange={handleChange}/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Check label='U (Free/Unmarked)' name="ulot" defaultChecked={fields.ulot} onChange={handleChange}/>
+                        <Form.Check label='U (Free/Unmarked)' name="ulot" defaultChecked={types.ulot}  onChange={handleChange}/>
                     </Form.Group>
                 </Form>
             </div>

@@ -1,9 +1,10 @@
+import React, {useState}  from "react";
+import { Form } from "react-bootstrap";
 export function Slider(props){
     const [sliderValue, setSliderValue] = useState(5);
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
     };
-
     return (
         <Form.Group>
             <Form.Label htmlFor='slider'>How many open {props.type} spots are near you</Form.Label>
