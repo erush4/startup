@@ -3,6 +3,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
 import { useState, useEffect } from 'react';
+import { DataPoint } from './dataPoint';
+import { Form } from 'react-bootstrap';
+import {Survey} from './survey/survey.jsx';
 
 export function Map(props){
     const [settings, setSettings] = useState(null)
@@ -24,32 +27,22 @@ export function Map(props){
         if (!settings){ 
         return <div>Loading...</div>; 
     }
+    
     return (
         <main className="container-fluid">    
         <div id ="map"> 
             <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
                 Report Lot Conditions
             </button>
-                <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
+                <h1>Map requires API to display <span className="small">and I haven't done that yet</span></h1> 
                 <p>Currently displaying spots in: <Displaying/> </p>
                 <p>sample survey data will be displayed here:</p>
+                
         </div>
         <div className="modal" id="surveyModal">
             <div className="modal-dialog">
                 <div className="modal-content">
-                    <div className="modal-header">
-                        <h4 className="modal-title">Report Lot Conditions</h4>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div className="modal-body">
-                        <form>
-                            <div>About how many open spots would you say there are around you?</div>
-                            <div >Completely Empty <input type="range" min="0" max="10"/>Completely Full</div>
-                        </form>
-                    </div>
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    </div>
+                    <Survey settings={settings}/>
                 </div>
             </div>
         </div>

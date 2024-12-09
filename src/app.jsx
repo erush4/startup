@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
 import { Map } from './map/map';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
