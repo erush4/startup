@@ -1,15 +1,3 @@
-@keyframes slide-in-right {
-    from {right: -100%;}
-    to {right: 0;}
-}
-.toast {
-    position: absolute;
-    z-index: 100;
-    right: 0;
-    animation-name: slide-in-right;
-    animation-duration: 1s;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
 #surveyButton{
     z-index: 99;
      margin: 1em;

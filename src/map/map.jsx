@@ -1,9 +1,13 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
+import { Survey } from './survey';
+
 
 export function Map(){
+    
     return (
         <main className="container-fluid">    
         <div id ="map"> 
@@ -21,13 +25,10 @@ export function Map(){
                         <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div className="modal-body">
-                        <form>
-                            <div>About how many open spots would you say there are around you?</div>
-                            <div >Completely Empty <input type="range" min="0" max="10"/>Completely Full</div>
-                        </form>
+                        <Survey />
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <Button variant='primary' data-bs-dismiss="modal">Report</Button>
                     </div>
                 </div>
             </div>
