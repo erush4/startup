@@ -14,13 +14,7 @@ export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
     const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-        const [settings, setSettings]= React.useState({
-            ylot: false,
-            alot: false,
-            glot: false,
-            ulot: false,
-            anonymous: false
-        })
+    const [anonymous, setAnonymous]= React.useState(JSON.parse(localStorage.getItem('anonymous')) || false)
 
   return (
     <BrowserRouter>
@@ -92,7 +86,7 @@ export default function App() {
                     authState={authState}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
-                        setUserName
+                        setUserName(userName);
 ;                    }}
                 />
             } exact 
@@ -103,14 +97,15 @@ export default function App() {
             element={<Profile
                 userName={userName}
                 authState={authState}
-                settings={settings}
+                anonymous={anonymous}
+                setAnonymous={setAnonymous}
                 onAuthChange={(userName, authState) => {
                     setAuthState(authState);
                     setUserName(userName);
                 }}
             />}  
         />
-        <Route path='/map' element={<Map/>}  />
+        <Route path='/map' element={<Map userName={userName}/>}  />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/CreateAccount' element={<CreateAccount
             userName={userName}

@@ -1,13 +1,23 @@
-import React from 'react';
+import React,  {useState} from 'react';
 import { Button } from 'react-bootstrap';
+import { Survey } from './survey';
+import { DataPoint } from './data-point';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
-import { Survey } from './survey';
 
 
-export function Map(){
+
+export function Map(props){
+    const username = props.username;
+    const location = [0,0];
+    const [value, setValue] = useState(5)
+    let dataPoints = localStorage.getItem('data') || [];
     
+    function addData() {
+        dataPoints.push(new DataPoint(value, location, username));
+        localStorage.setItem('data', JSON.stringify(dataPoints));
+    }
     return (
         <main className="container-fluid">    
         <div id ="map"> 
@@ -16,6 +26,7 @@ export function Map(){
             </button>
                 <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
                 <p>sample survey data will be displayed here:</p>
+                {/* < Data dataPoints={datPoints}/>*/}
         </div>
         <div className="modal" id="surveyModal">
             <div className="modal-dialog">
@@ -25,10 +36,10 @@ export function Map(){
                         <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div className="modal-body">
-                        <Survey />
+                        <Survey setValue={setValue}/>
                     </div>
                     <div className="modal-footer">
-                        <Button variant='primary' data-bs-dismiss="modal">Report</Button>
+                        <Button variant='primary' onClick={() => addData()} data-bs-dismiss="modal">Report</Button>
                     </div>
                 </div>
             </div>

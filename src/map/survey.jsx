@@ -6,6 +6,8 @@ export function Survey (props){
     const [sliderValue, setSliderValue] = useState(5);
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
+        props.setValue(sliderValue);
+
     };
     return (
     <Form>
@@ -14,7 +16,7 @@ export function Survey (props){
         </Form.Group>
         <br />
         <Form.Group>
-            <Form.Label htmlFor='slider'>How many open spots are near you?</Form.Label>
+            <Form.Label htmlFor='slider'>How many open Y spots are near you?</Form.Label>
             <Form.Range min="0" max="10" value={sliderValue} onChange={handleSliderChange}/>
             <Form.Text>Selected value: {sliderValue}</Form.Text>
         </Form.Group>
