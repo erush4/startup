@@ -1,7 +1,8 @@
-import React,  {useState} from 'react';
+import React,  {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import { Survey } from './survey';
 import { DataPoint } from './data-point';
+import { Data } from './data';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
@@ -9,14 +10,24 @@ import './map.css';
 
 
 export function Map(props){
-    const username = props.username;
+    
     const location = [0,0];
     const [value, setValue] = useState(5)
-    let dataPoints = localStorage.getItem('data') || [];
-    
+    const [dataPoints, setDataPoints] = 
+        useState(
+            () => {
+                const savedData = localStorage.getItem('data'); 
+                return savedData ? JSON.parse(savedData) : []; });
+    const username = props.userName;
+
+    useEffect(
+        () => { 
+            localStorage.setItem('data', JSON.stringify(dataPoints)); 
+        }, [dataPoints]
+    )
+
     function addData() {
-        dataPoints.push(new DataPoint(value, location, username));
-        localStorage.setItem('data', JSON.stringify(dataPoints));
+        setDataPoints((prevDataPoints => [...prevDataPoints, new DataPoint(value, location, username )]))
     }
     return (
         <main className="container-fluid">    
@@ -26,7 +37,7 @@ export function Map(props){
             </button>
                 <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
                 <p>sample survey data will be displayed here:</p>
-                {/* < Data dataPoints={datPoints}/>*/}
+                < Data dataPoints={dataPoints}/>
         </div>
         <div className="modal" id="surveyModal">
             <div className="modal-dialog">

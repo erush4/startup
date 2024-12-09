@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
 import { Form } from 'react-bootstrap'
 
-
 export function Survey (props){    
     const [sliderValue, setSliderValue] = useState(5);
     const handleSliderChange = (e) => {
         setSliderValue(e.target.value);
-        props.setValue(sliderValue);
+        props.setValue(e.target.value);
 
     };
+    
     return (
     <Form>
         <Form.Group>
