@@ -54,21 +54,6 @@ export function Profile(props){
             <h2>Info</h2>
                 <div> User Name: <span>{props.userName}</span></div>
             <h2>Settings</h2>
-                <div>Spots to display on map:</div>
-            <Form>
-                <Form.Group>
-                    <Form.Switch label='Y (Student)' name="ylot" defaultChecked={settings.ylot} onChange={handleChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Switch label='G (Graduate)' name="glot" defaultChecked={settings.glot} onChange={handleChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Switch label='A (Employee)' name="alot" defaultChecked={settings.alot} onChange={handleChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Switch label='U (Free/Unmarked)' name="ulot" defaultChecked={settings.ulot} onChange={handleChange}/>
-                </Form.Group>
-            </Form>
             <div>Privacy:</div>
             <Form>
                 <FormGroup>
