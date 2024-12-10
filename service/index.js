@@ -20,14 +20,10 @@ app.use('/api', apiRouter);
 apiRouter.post('/auth/create', async (req, res) => {   
 	const existingUser = users[req.body.username];
 	if (existingUser) {
-		console.log('exists')
 		res.status(409).send({ msg: 'Username already exists!' });
 	} else {
-        console.log('success!')
-		const newUser = { username: req.body.username, password: req.body.password, token: uuid.v4() };
-        console.log(newUser)
+		const newUser = { username: req.body.username, password: req.body.password, anonymous: false, token: uuid.v4() };
 		users[newUser.username] = newUser;
-        console.log(users)
 		res.send({ token: newUser.token });
 	} 
 });
@@ -38,7 +34,7 @@ apiRouter.post('/auth/signin', async (req, res) => {
 	if (user) {
 		if (req.body.password === user.password) {
 			user.token = uuid.v4();
-			res.send({ token: user.token });
+			res.send({ token: user.token, anonymous: user.anonymous});
 			return;
 		}		
 	}
@@ -70,4 +66,21 @@ apiRouter.post('/datapoint', (req, res) => {
 
 });
 
-//get username
+//set anonymous
+apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
+     const user = req.user;
+      user.anonymous = req.body.anonymous; 
+      res.status(204).end();
+});
+
+//token authentication middleware
+function authenticateToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).send({ msg: 'No token provided' });
+
+    const user = Object.values(users).find(user => user.token === token);
+    if (!user) return res.status(403).send({ msg: 'Invalid token' });
+
+    req.user = user;
+    next();
+}

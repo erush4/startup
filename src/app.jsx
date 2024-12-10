@@ -84,6 +84,7 @@ export default function App() {
                 <Signin
                     userName={userName}
                     authState={authState}
+                    setAnonymous={anonymous}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
                         setUserName(userName);

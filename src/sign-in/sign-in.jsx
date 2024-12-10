@@ -15,8 +15,9 @@ export function Signin({ userName, authState, onAuthChange }) {
         {authState === AuthState.Unauthenticated && (
           <Unauthenticated
             userName={userName}
-            onLogin={(loginUserName) => {
+            onLogin={(loginUserName, anonSetting) => {
               onAuthChange(loginUserName, AuthState.Authenticated);
+              setAnonymous(anonSetting);
             }}
           />
         )}

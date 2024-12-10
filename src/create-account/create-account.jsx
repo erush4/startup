@@ -3,21 +3,13 @@ import './create-account.css';
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { AuthState } from "../sign-in/authState";
+import { ErrorHandler } from "../error-handler/error-handler";
 
 export function CreateAccount(props) {
     const [userName, setUserName] = React.useState(props.userName);
     const [password, setPassword] = React.useState('');
     const [passwordVerify, setPasswordVerify] = React.useState('');
     const [userVerify, setUserVerify] = React.useState(null);
-
-    function ErrorHandle() {
-        if (userVerify) {
-            return (
-                <div className='error text-danger'>Error: {userVerify.msg}</div>
-            );
-        }
-        return null;
-    }
 
     function PasswordVerification() {
         if (password === '') {
@@ -34,7 +26,6 @@ export function CreateAccount(props) {
     }
 
     async function createUser() {
-        console.log('begin creation');
         const response = await fetch('/api/auth/create', {
             method: 'post',
             body: JSON.stringify({ username: userName, password: password }),
@@ -43,9 +34,8 @@ export function CreateAccount(props) {
             },
         });
         if (response.status === 200) {
-            console.log('success?');
             localStorage.setItem('userName', userName);
-            console.log(userName);
+
             props.onAuthChange(userName, AuthState.Authenticated);
             location.href = '/Map';
         } else {
@@ -63,6 +53,7 @@ export function CreateAccount(props) {
                         <Form.Label>Username</Form.Label>
                         <Form.Control type='text' placeholder="username" value={userName} onChange={(u) => setUserName(u.target.value)}></Form.Control>
                         <Form.Text>This is the name people will see associated with your surveys.</Form.Text>
+                        <ErrorHandler error={userVerify}/>
                     </Form.Group>
                     <Form.Group className='mb-3'>
                         <Form.Label>Password</Form.Label>
