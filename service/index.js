@@ -2,7 +2,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 
-const port = process.argv.length > 2 ? process.argv[2] : 8000;
+const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
@@ -54,16 +54,20 @@ apiRouter.post('/auth/create', async (req, res) => {
   //get datapoints?
 
   apiRouter.get('/data', (_req, res) => {
+    console.log('requested data');
     res.send(data);
   });
 
   // add datapoints
   apiRouter.post('/datapoint', (req, res) => {
-    data.push(req.datapoint)
+    console.log('got data');
+    console.log(req.body);
+    data.push(req.body);
+  
     res.send(data);
 
     if (data.length > 2000) {
         data.length = 2000;
     }
-    
+
   });

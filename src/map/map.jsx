@@ -14,34 +14,36 @@ export function Map(props){
     const location = [0,0];
     const [value, setValue] = useState(5)
     const [dataPoints, setDataPoints] = 
-        useState(
-            () => {
-                const savedData = localStorage.getItem('data'); 
-                return savedData ? JSON.parse(savedData) : []; });
-
+        useState([])
 
     useEffect(()=>{
         if (props.anonymous) {
             setUserName('Anon');
         }
     },[props.anonymous]
-)
+);
     useEffect(
+        
         () => { 
-            localStorage.setItem('data', JSON.stringify(dataPoints)); 
-        }, [dataPoints]
-    )
-    useEffect( () => {
-        const interval = setInterval(() => {
-                const randValue = Math.floor(Math.random() * 10) +1;
-                const newDataPoint = new DataPoint (randValue, location, 'otherUser');
-                setDataPoints((prevDataPoints => [...prevDataPoints, newDataPoint]));
-            }, 10000);
-            return () => clearInterval(interval);
-        }, [])        
+            console.log('askdata');
+            fetch('/api/data')
+                .then((response) =>response.json())
+                .then ((data) => {
+                    setDataPoints(data);
+                }); 
+            console.log('getdata', {dataPoints})   
+            }, []
+        );      
 
-    function addData() {
-        setDataPoints((prevDataPoints => [...prevDataPoints, new DataPoint(value, location, username )]))
+    async function addData() {
+        console.log('add data')
+        const datapoint= new DataPoint(value, location, username);
+        console.log(datapoint);
+        await fetch('/api/datapoint', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify(datapoint)
+        });
     }
     return (
         <main className="container-fluid">    
