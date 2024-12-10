@@ -1,4 +1,5 @@
 const express = require('express');
+const apikey = require(mapConfig.json)
 const uuid = require('uuid');
 const app = express();
 

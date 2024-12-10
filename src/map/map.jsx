@@ -6,16 +6,15 @@ import { Data } from './data';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map.css';
+import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import { apikey } from './mapConfig';
 
-
-
-export function Map(props){
+export function MapPage(props){
     const[username, setUserName] = useState(props.userName)
     const location = [0,0];
-    const [value, setValue] = useState(5)
-    const [dataPoints, setDataPoints] = 
-        useState([])
-
+    const [value, setValue] = useState(5);
+    const [dataPoints, setDataPoints] = useState([]);
+    
     useEffect(()=>{
         if (props.anonymous) {
             setUserName('Anon');
@@ -51,6 +50,13 @@ export function Map(props){
             <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
                 Report Lot Conditions
             </button>
+            <APIProvider apiKey={ apikey}>
+                <Map
+                    defaultZoom={13}
+                    defaultCenter={ { lat: -33.860664, lng: 151.208138 } }
+                    >
+                </Map>
+            </APIProvider>
                 <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
                 <p>sample survey data will be displayed here:</p>
                 < Data dataPoints={dataPoints}/>
