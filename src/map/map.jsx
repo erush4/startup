@@ -25,20 +25,16 @@ export function Map(props){
     useEffect(
         
         () => { 
-            console.log('askdata');
             fetch('/api/data')
                 .then((response) =>response.json())
                 .then ((data) => {
                     setDataPoints(data);
-                }); 
-            console.log('getdata', {dataPoints})   
+                });   
             }, []
         );      
 
     async function addData() {
-        console.log('add data')
         const datapoint= new DataPoint(value, location, username);
-        console.log(datapoint);
         await fetch('/api/datapoint', {
             method: 'POST',
             headers: { 'content-type': 'application/json'},

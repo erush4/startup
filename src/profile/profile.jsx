@@ -14,11 +14,17 @@ export function Profile(props){
     }
     
     
-    function signout(){
-        localStorage.removeItem('userName');
-        localStorage.removeItem('anonymous');
-        localStorage.removeItem('data');
-        props.onAuthChange(props.userName, AuthState.Unauthenticated);
+    async function signout() {
+        fetch(`/api/auth/logout`, {
+          method: 'delete',
+        })
+          .catch(() => {   
+          })
+          .finally(() => {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('anonymous');
+            props.onAuthChange(props.userName, AuthState.Unauthenticated)
+          });
       }
     return (
         <main className="container">
