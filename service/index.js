@@ -66,16 +66,12 @@ apiRouter.post('/datapoint', (req, res) => {
 
 });
 
-//set anonymous
-apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
-     const user = req.user;
-      user.anonymous = req.body.anonymous; 
-      res.status(204).end();
-});
-
-//token authentication middleware
+// Token authentication middleware
 function authenticateToken(req, res, next) {
-    const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) return res.status(401).send({ msg: 'No token provided' });
+
+    const token = authHeader.split(' ')[1]; // Extract the token from the "Bearer <token>" format
     if (!token) return res.status(401).send({ msg: 'No token provided' });
 
     const user = Object.values(users).find(user => user.token === token);
@@ -84,3 +80,11 @@ function authenticateToken(req, res, next) {
     req.user = user;
     next();
 }
+
+// Set anonymous (protected route)
+apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
+    const user = req.user;
+    user.anonymous = req.body.anonymous;
+    res.status(204).end();
+});
+

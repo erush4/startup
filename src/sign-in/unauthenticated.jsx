@@ -21,9 +21,9 @@ export function Unauthenticated(props){
     if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem('userName', userName);
-        localStorage.setItem('anonymous', data.anonymous)
-        localStorage.setItem('token', data.token)
-        props.onLogin(userName, data.anonymous)
+        localStorage.setItem('anonymous', data.anonymous);
+        localStorage.setItem('token', data.token);
+        props.onLogin(userName, data.anonymous);
     } else {
         const body = await response.json();
         setUserVerify(body); 

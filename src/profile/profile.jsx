@@ -10,28 +10,31 @@ import { ErrorHandler } from '../error-handler/error-handler';
 
 export function Profile(props){
     const [error, setError] = useState(null);
+
     async function setAnon(anonymous) {
         const token = localStorage.getItem('token');
-        const response = await fetch('/api/setanon', {
+        const response = await fetch('/api/settings/anon', {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ anonymous }),
+            body: JSON.stringify({ anonymous }), // Correct JSON structure
         });
     
         if (!response.ok) {
             const broken = await response.json();
-            setError('Failed to update anonymous status', broken.msg);
+            setError(`Failed to update anonymous status: ${broken.msg}`);
         }
-        
     }
+    
+
     const handleChange = (event) => {
         props.setAnonymous(event.target.checked);
         localStorage.setItem('anonymous', event.target.checked);
-        setAnon(event.target.checked)
+        setAnon(event.target.checked);
     }
+
     
     
     async function signout() {
