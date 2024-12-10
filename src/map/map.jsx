@@ -43,7 +43,11 @@ export function Map(props){
             method: 'POST',
             headers: { 'content-type': 'application/json'},
             body: JSON.stringify(datapoint)
-        });
+        })
+                .then((response) =>response.json())
+                .then ((data) => {
+                    setDataPoints(data);
+                }); 
     }
     return (
         <main className="container-fluid">    

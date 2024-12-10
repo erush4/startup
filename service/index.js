@@ -54,14 +54,11 @@ apiRouter.post('/auth/create', async (req, res) => {
   //get datapoints?
 
   apiRouter.get('/data', (_req, res) => {
-    console.log('requested data');
     res.send(data);
   });
 
   // add datapoints
   apiRouter.post('/datapoint', (req, res) => {
-    console.log('got data');
-    console.log(req.body);
     data.push(req.body);
   
     res.send(data);
@@ -71,3 +68,5 @@ apiRouter.post('/auth/create', async (req, res) => {
     }
 
   });
+
+  //get username
