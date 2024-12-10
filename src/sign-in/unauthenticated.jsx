@@ -7,11 +7,34 @@ import './unauthenticated.css';
 export function Unauthenticated(props){
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
+  const [userVerify, setUserVerify] = React.useState(null);
+
+  function ErrorHandle() {
+    if (userVerify) {
+        return (
+            <div className='error text-danger'>Error: {userVerify.msg}</div>
+        );
+    }
+    return null;
+}
 
   async function loginUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
-  }
+    console.log('begin creation');
+    const response = await fetch('/api/auth/signin', {
+        method: 'post',
+        body: JSON.stringify({ username: userName, password: password }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    if (response.status === 200) {
+        localStorage.setItem('userName', userName);
+        props.onLogin(userName)
+    } else {
+        const body = await response.json();
+        setUserVerify(body); 
+    }
+}
 
     return (
         <main className="container">
@@ -31,6 +54,7 @@ export function Unauthenticated(props){
                 <div className="row">
                     <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
                 </div>
+                <ErrorHandle />
             </div> 
             <p id="createLink">Don't have an account? Create one <a href="/CreateAccount">here</a></p>
         </div>

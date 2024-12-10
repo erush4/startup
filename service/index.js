@@ -42,7 +42,7 @@ apiRouter.post('/auth/signin', async (req, res) => {
 			return;
 		}		
 	}
-	res.status(401).send({ msg: 'Unauthorized' });
+	res.status(401).send({ msg: 'Incorrect username or password' });
 });
 
 //logout user

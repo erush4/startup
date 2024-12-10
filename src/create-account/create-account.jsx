@@ -50,7 +50,7 @@ export function CreateAccount(props) {
             location.href = '/Map';
         } else {
             const body = await response.json();
-            setUserVerify(body); // Directly set the response body
+            setUserVerify(body); 
         }
     }
 
@@ -63,7 +63,6 @@ export function CreateAccount(props) {
                         <Form.Label>Username</Form.Label>
                         <Form.Control type='text' placeholder="username" value={userName} onChange={(u) => setUserName(u.target.value)}></Form.Control>
                         <Form.Text>This is the name people will see associated with your surveys.</Form.Text>
-                        <ErrorHandle />
                     </Form.Group>
                     <Form.Group className='mb-3'>
                         <Form.Label>Password</Form.Label>
