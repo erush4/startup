@@ -52,8 +52,9 @@ export function MapPage(props){
             </button>
             <APIProvider apiKey={ apikey}>
                 <Map
-                    defaultZoom={13}
-                    defaultCenter={ { lat: -33.860664, lng: 151.208138 } }
+                    defaultZoom={16}
+                    defaultCenter={ { lat: 40.25214576901133, lng: -111.64926838213698 } }
+                    mapId='PARKING_MAP'
                     >
                 </Map>
             </APIProvider>
