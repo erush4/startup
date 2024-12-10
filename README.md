@@ -52,7 +52,7 @@ The main structure of the website is now in place.
 - **Application images** - appropriately resized and aligned.
 
 # React Deliverable
-- **Bundled using Vite** - yuo
+- **Bundled using Vite** - yup
 - **Components** - complete and mocked up (minus some API requirements)
 - **Login** - Can login or create account
   - **Settings** - can choose to submit surveys anonymously
