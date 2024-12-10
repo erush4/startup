@@ -50,3 +50,14 @@ The main structure of the website is now in place.
 - **Application elements** - reasonable contrast and whitespace, important elements are in a different color, does not hurt to look at
 - **Application text content** - consistent fonts, resized and indented appropriately.
 - **Application images** - appropriately resized and aligned.
+
+# React Deliverable
+- **Bundled using Vite** - yuo
+- **Components** - complete and mocked up (minus some API requirements)
+- **Login** - Can login or create account
+  - **Settings** - can choose to submit surveys anonymously
+  - **Map and survey data** - There is no longer a map displaying, since that was just an html import. I have opted to display the data just as JSON strings in a box, since I will need the Google Maps API to properly render it all. That is coming in the Service deliverable. Surveys also use (0,0) for coordinates in absense of the map location being available.
+  - **WebSocket** - setInterval function periodically adds an example survey to the list.
+  - **Database** - mocked up using local storage
+- **Router** - Routing between all neccessary pages (map, help, profile)
+- **Hooks** - SOOO many hooks. I feel like I did nothing but hooks. useState, and useEffect ensure the map and the profile can pass necessary information while also keeping all data up-to-date.
