@@ -20,3 +20,10 @@ p{
     margin-left:1em;
     font-size: small;
 }
+.cont{
+    display: flex;
+    justify-content: flex-end;
+}
+.submitSurvey{
+    margin-right: 2em;
+}

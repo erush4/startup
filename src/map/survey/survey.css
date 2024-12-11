@@ -2,6 +2,8 @@
     height: 60vh; 
     width: 100%;
     position:relative;
+    border: solid;
+    border-width: 1px;
 }
 .surveySlider{
     margin-top: 0.5em;
@@ -10,4 +12,7 @@
     z-index: 100;
     position: absolute;
     margin: 1em;
+}
+.mapInstruct{
+    margin-bottom: 0.5em;
 }

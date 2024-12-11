@@ -1,6 +1,6 @@
 import React,  {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
-import { Survey } from './survey';
+import { Survey } from './survey/survey';
 import { DataPoint } from './data-point';
 import { Data } from './data';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -12,7 +12,7 @@ import { apikey } from './mapConfig';
 
 export function MapPage(props){
     const[username, setUserName] = useState(props.userName)
-    const location = [0,0];
+    const [location , setLocation] = useState(null);
     const [value, setValue] = useState(5);
     const [dataPoints, setDataPoints] = useState([]);
 
@@ -45,6 +45,7 @@ export function MapPage(props){
                 .then((response) =>response.json())
                 .then ((data) => {
                     setDataPoints(data);
+                    console.log(data)
                 }); 
     }
     return (
@@ -74,10 +75,10 @@ export function MapPage(props){
                     </div>
                     <div className="modal-body">
                         
-                        <Survey setValue={setValue}/>
-                    </div>
-                    <div className="modal-footer">
-                        <Button variant='success' onClick={() => addData()} data-bs-dismiss="modal">Submit</Button>
+                        <Survey setValue={setValue} setLocation={setLocation}/>
+                        <div className='cont'>
+                            <Button variant='success' className='submitSurvey' onClick={() => addData()} data-bs-dismiss="modal">Submit</Button>
+                        </div>
                     </div>
                 </div>
             </div>
