@@ -5,9 +5,10 @@ import { DataPoint } from './data-point';
 import { Data } from './data';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './map.css';
+import './map-page.css';
 import {APIProvider, Map} from '@vis.gl/react-google-maps';
 import { apikey } from './mapConfig';
+
 
 export function MapPage(props){
     const[username, setUserName] = useState(props.userName)
@@ -51,25 +52,27 @@ export function MapPage(props){
                 Report Lot Conditions
             </button>
             <APIProvider apiKey={ apikey}>
-                <Map
+                <Map 
                     defaultZoom={16}
                     defaultCenter={ { lat: 40.25214576901133, lng: -111.64926838213698 } }
                     mapId='PARKING_MAP'
+                    disableDefaultUI={true}
+                    zoomControl={true}
                     >
                 </Map>
             </APIProvider>
-                <h1>Map requires API to display <span>and I haven't done that yet</span></h1> 
                 <p>sample survey data will be displayed here:</p>
                 < Data dataPoints={dataPoints}/>
         </div>
         <div className="modal" id="surveyModal">
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-fullscreen">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h4 className="modal-title">Report Lot Conditions</h4>
                         <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div className="modal-body">
+                        
                         <Survey setValue={setValue}/>
                     </div>
                     <div className="modal-footer">

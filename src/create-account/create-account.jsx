@@ -37,7 +37,7 @@ export function CreateAccount(props) {
             localStorage.setItem('userName', userName);
 
             props.onAuthChange(userName, AuthState.Authenticated);
-            location.href = '/Map';
+            location.href = '/Signin';
         } else {
             const body = await response.json();
             setUserVerify(body); 

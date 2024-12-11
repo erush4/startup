@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { MapPage } from './map/map';
+import { MapPage } from './map/map-page';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
 import "bootstrap/dist/css/bootstrap.min.css";
