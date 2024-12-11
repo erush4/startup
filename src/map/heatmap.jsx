@@ -12,15 +12,15 @@ export function Heatmap(props) {
       opacity: 0.6 
     });
   }, [visualization]);
-  
+  // creates dataSet?
   useEffect(() => {
     if (!heatmap) return;
-    console.log(props.data);
     const dataSet = props.data.map(thing => ( {
       location: new google.maps.LatLng(thing.location.lat, thing.location.lng),
       weight: thing.weight
     }
     ));
+    console.log(dataSet)
     heatmap.setData(dataSet);
     heatmap.setMap(map);
   }, [heatmap, map, props.data]); 

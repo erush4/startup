@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Spinner } from 'react-bootstrap'
 import { APIProvider, Map , useMapsLibrary, AdvancedMarker, useAdvancedMarkerRef, useMap} from '@vis.gl/react-google-maps';
 import { apikey } from '../mapConfig';
 import { Circle } from './circle';
@@ -7,8 +7,7 @@ import './survey.css'
 
 export function Survey (props){    
     const [sliderValue, setSliderValue] = useState(5);
-    const [coordinates, setCoordinates] = useState({ lat: 40.25214576901133, lng: -111.64926838213698});
-    const[pin, setPin] = useState(coordinates)
+    const[pin, setPin] = useState({ lat: 40.25214576901133, lng: -111.64926838213698})
     const [zoom, setZoom] = useState(17);
     const [markerRef, marker] = useAdvancedMarkerRef();
     const handleSliderChange = (e) => {
@@ -28,19 +27,44 @@ export function Survey (props){
         });
     }
 
-    function setLocation() {
-        navigator.geolocation.getCurrentPosition(position =>{
-            const newCoords = new google.maps.LatLng ({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-                })
-            setZoom(18);
-            setCoordinates(newCoords);
-            setPin(newCoords);
-            marker.position = newCoords;
-            props.setLocation(newCoords)
-        });
+    function SpinHider(){
+        if (props.fetching === false){
+            return null;
+        }
+        return(
+        <Spinner 
+                as='span'
+                animation='border'
+                size='sm'
+                role='status'
+                aria-hidden='true'
+                className='spinner'
+                />
+        )
     }
+
+    function setLocation() {
+        props.setFetching(true);
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const newCoords = new google.maps.LatLng({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                });
+    
+                setZoom(18);
+                setPin(newCoords);
+                marker.position = newCoords;
+                props.setLocation(newCoords)
+                props.setFetching(false)
+            },
+            (error) => {
+                console.error('Error getting geolocation:', error);
+                props.setFetching(false);
+            }
+        );
+    }
+    
     
     useEffect(() => {
         if(!marker){
@@ -48,6 +72,7 @@ export function Survey (props){
         }
         marker.addListener("dragend", (event) => {;
             setPin(marker.position); 
+            props.setLocation(marker.position)
         });
     }, [marker])
 
@@ -56,11 +81,14 @@ export function Survey (props){
     <Form.Group >
     <h6 className='mapInstruct'>Drag the marker to select your location on the map:</h6>
         <div className='surveyMap'>
-        <Button className='pickLocation' onClick={() => setLocation()}>Use My Device's Location</Button>
+        <Button className='pickLocation' onClick={() => setLocation()} disabled={props.fetching}>
+            Use My Device's Location 
+            <SpinHider />
+            </Button>
         <APIProvider apiKey={ apikey} id='Map' >
                 <Map
                     defaultZoom={zoom}
-                    defaultCenter={ coordinates }
+                    defaultCenter={ pin }
                     mapId ='SURVEY_MAP'
                     disableDefaultUI={true}
                     zoomControl={true}

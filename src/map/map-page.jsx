@@ -14,6 +14,22 @@ export function MapPage(props) {
     const [location, setLocation] = useState({ lat: 40.25214576901133, lng: -111.64926838213698 });
     const [value, setValue] = useState(5);
     const [dataPoints, setDataPoints] = useState([]);
+    const[fetching, setFetching] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const randValue = Math.floor(Math.random() * 10) + 1;
+            const lt = (Math.random() * 0.013) + 40.243;
+            const ln = (Math.random() * 0.013) - 111.656;
+            const newLocation = { lat: lt, lng: ln }; // Create a new location
+            const newDataPoint = new DataPoint(randValue, newLocation, 'otherUser'); // Use the new location
+            console.log('New Data Point:', newDataPoint); // Log the new data point
+            setDataPoints((prevDataPoints) => [...prevDataPoints, newDataPoint]);
+        }, 10000);
+        return () => clearInterval(interval);
+    }, []);
+    
+    
 
     useEffect(() => {
         if (props.anonymous) {
@@ -75,9 +91,9 @@ export function MapPage(props) {
                             <button type="button" className="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div className="modal-body">
-                            <Survey setValue={setValue} setLocation={setLocation} />
+                            <Survey setValue={setValue} setLocation={setLocation} setFetching={setFetching} fetching={fetching}/>
                             <div className="cont">
-                                <Button variant="success" className="submitSurvey" onClick={() => addData()} data-bs-dismiss="modal">
+                                <Button variant="success" className="submitSurvey" disabled={fetching} onClick={() => addData()} data-bs-dismiss="modal">
                                     Submit
                                 </Button>
                             </div>
