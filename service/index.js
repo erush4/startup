@@ -61,15 +61,18 @@ apiRouter.get('/data', (_req, res) => {
 
 // add datapoints
 apiRouter.post('/datapoint', (req, res) => {
-	console.log('called');
-	console.log(req.body);
 	let point = req.body;
-	console.log(point);
 	heatPoint = {
 		location: point.location,
 		weight: point.value
 	}
-	console.log('heatpoint', heatPoint)
+	for (let thing of data) {
+		if (thing.location === heatPoint.location){
+			 thing.value = heatPoint.weight;
+			 thing.username = point.username;
+			 return(data);
+		}
+	}
 	data.push(point);
 	heatmap.push(heatPoint)
 	res.send(heatmap);
