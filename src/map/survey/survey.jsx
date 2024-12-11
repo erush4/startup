@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Form, Button, Spinner } from 'react-bootstrap'
-import { APIProvider, Map , useMapsLibrary, AdvancedMarker, useAdvancedMarkerRef, useMap} from '@vis.gl/react-google-maps';
+import { APIProvider, Map , AdvancedMarker, useAdvancedMarkerRef, useMap} from '@vis.gl/react-google-maps';
 import { apikey } from '../mapConfig';
 import { Circle } from './circle';
 import './survey.css'

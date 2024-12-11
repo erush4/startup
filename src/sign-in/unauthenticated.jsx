@@ -55,23 +55,3 @@ export function Unauthenticated(props){
     </main>
     );
 }
-
-
-
-async function fetchProtectedResource() {
-    const token = localStorage.getItem('token');
-    const response = await fetch('/api/protected', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        console.log('Protected data:', data);
-    } else {
-        console.error('Failed to fetch protected resource:', response.statusText);
-    }
-}
