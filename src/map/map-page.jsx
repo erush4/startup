@@ -19,8 +19,7 @@ export function MapPage(props) {
         if (props.anonymous) {
             setUserName('Anon');
         }
-    }, [props.anonymous]);
-
+    }, [props.anonymous])
     useEffect(() => {
         fetch('/api/data')
             .then((response) => response.json())
