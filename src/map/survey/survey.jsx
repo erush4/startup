@@ -30,10 +30,10 @@ export function Survey (props){
 
     function setLocation() {
         navigator.geolocation.getCurrentPosition(position =>{
-            const newCoords = {
+            const newCoords = new google.maps.LatLng ({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
-            }
+                })
             setZoom(18);
             setCoordinates(newCoords);
             setPin(newCoords);
@@ -75,7 +75,7 @@ export function Survey (props){
         </Form.Group>
         <Form.Group className='surveySlider'>
             <Form.Label htmlFor='slider'>How many open Y spots are there in the circle?</Form.Label>
-            <Form.Range min="0" max="10" value={sliderValue} onChange={handleSliderChange}/>
+            <Form.Range min='0' max="10" value={sliderValue} onChange={handleSliderChange}/>
             <Form.Text>Selected value: {sliderValue} spot(s)</Form.Text>
         </Form.Group>
     </Form> 

@@ -1,6 +1,8 @@
 const express = require('express');
 const uuid = require('uuid');
+const { PluginContainer } = require('vite');
 const app = express();
+
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -12,6 +14,7 @@ app.use(express.json());
 
 let users = {};
 let data = [];
+let heatmap = [];
 
 var apiRouter = express.Router();
 app.use('/api', apiRouter);
@@ -53,18 +56,33 @@ apiRouter.delete('/auth/signout', (req, res) => {
 //get datapoints?
 
 apiRouter.get('/data', (_req, res) => {
-	res.send(data);
+	res.send(heatmap);
 });
 
 // add datapoints
 apiRouter.post('/datapoint', (req, res) => {
-	data.push(req.body);
-	res.send(data);
+	console.log('called');
+	console.log(req.body);
+	let point = req.body;
+	console.log(point);
+	heatPoint = {
+		location: point.location,
+		weight: point.value
+	}
+	console.log('heatpoint', heatPoint)
+	data.push(point);
+	heatmap.push(heatPoint)
+	res.send(heatmap);
 	if (data.length > 2000) {
-	data.length = 2000;
+		data.length = 2000;
+	}
+	if (heatmap.length > 200) {
+		heatmap.length = 200;
+	}
+	console.log('heatmap',heatmap);
+	console.log('data', data)
 }
-
-});
+);
 
 // Token authentication middleware
 function authenticateToken(req, res, next) {

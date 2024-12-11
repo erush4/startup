@@ -61,7 +61,7 @@ export function Profile(props){
             <Form>
                 <Form.Group>
                     <Form.Switch label='Submit surveys anonymously' name="anonymous" defaultChecked={props.anonymous} onChange={handleChange}/>
-                    <Form.Text>Surveys will still be linked to your account, but your username will not be displayed on the map.</Form.Text>
+                    <Form.Text>Surveys will not be linked to your account. This setting is only in regards to data storage and will not alter the map display.</Form.Text>
                     <ErrorHandler error={error}/>
                 </Form.Group>
             </Form>
