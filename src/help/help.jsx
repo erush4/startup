@@ -30,7 +30,7 @@ export function Help() {
                     <div id="howdoes" className="accordion-collapse collapse" data-bs-parent="#faq">
                         <div className="accordion-body">
                             Right now, the website isn't functional. But don't worry!
-                            It should be fully up and running before December 5th.
+                            It should be fully up and running before December 25th.
                         </div>
                     </div>
                 </div>

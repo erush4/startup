@@ -6,7 +6,7 @@ import { Data } from './data';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map-page.css';
-import {APIProvider, Map} from '@vis.gl/react-google-maps';
+import {APIProvider, Map, MapControl} from '@vis.gl/react-google-maps';
 import { apikey } from './mapConfig';
 
 
@@ -15,6 +15,8 @@ export function MapPage(props){
     const location = [0,0];
     const [value, setValue] = useState(5);
     const [dataPoints, setDataPoints] = useState([]);
+
+    
     
     useEffect(()=>{
         if (props.anonymous) {
@@ -58,8 +60,7 @@ export function MapPage(props){
                     mapId='PARKING_MAP'
                     disableDefaultUI={true}
                     zoomControl={true}
-                    >
-                </Map>
+                    />
             </APIProvider>
                 <p>sample survey data will be displayed here:</p>
                 < Data dataPoints={dataPoints}/>
@@ -76,7 +77,7 @@ export function MapPage(props){
                         <Survey setValue={setValue}/>
                     </div>
                     <div className="modal-footer">
-                        <Button variant='primary' onClick={() => addData()} data-bs-dismiss="modal">Report</Button>
+                        <Button variant='success' onClick={() => addData()} data-bs-dismiss="modal">Submit</Button>
                     </div>
                 </div>
             </div>

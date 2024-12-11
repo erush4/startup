@@ -1,4 +1,13 @@
 .surveyMap { 
     height: 60vh; 
     width: 100%;
+    position:relative;
+}
+.surveySlider{
+    margin-top: 0.5em;
+}
+.pickLocation{
+    z-index: 100;
+    position: absolute;
+    margin: 1em;
 }
