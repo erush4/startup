@@ -1,24 +1,54 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './profile.css';
 import { Button} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
+import { ErrorHandler } from '../error-handler/error-handler';
 
 
 export function Profile(props){
+    const [error, setError] = useState(null);
+
+    async function setAnon(anonymous) {
+        const token = localStorage.getItem('token');
+        const response = await fetch('/api/settings/anon', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ anonymous }), // Correct JSON structure
+        });
+    
+        if (!response.ok) {
+            const broken = await response.json();
+            setError(`Failed to update anonymous status: ${broken.msg}`);
+        }
+    }
+    
+
     const handleChange = (event) => {
         props.setAnonymous(event.target.checked);
         localStorage.setItem('anonymous', event.target.checked);
+        setAnon(event.target.checked);
     }
+
     
     
-    function signout(){
-        localStorage.removeItem('userName');
-        localStorage.removeItem('anonymous');
-        localStorage.removeItem('data');
-        props.onAuthChange(props.userName, AuthState.Unauthenticated);
+    async function signout() {
+        fetch(`/api/auth/logout`, {
+          method: 'delete',
+        })
+          .catch(() => {   
+          })
+          .finally(() => {
+            localStorage.removeItem('userName');
+            localStorage.removeItem('anonymous');
+            localStorage.removeItem('token');
+            props.onAuthChange(props.userName, AuthState.Unauthenticated)
+          });
       }
     return (
         <main className="container">
@@ -31,7 +61,8 @@ export function Profile(props){
             <Form>
                 <Form.Group>
                     <Form.Switch label='Submit surveys anonymously' name="anonymous" defaultChecked={props.anonymous} onChange={handleChange}/>
-                    <Form.Text>Surveys will still be linked to your account, but your username will not be displayed on the map.</Form.Text>
+                    <Form.Text>Surveys will not be linked to your account. This setting is only in regards to data storage and will not alter the map display.</Form.Text>
+                    <ErrorHandler error={error}/>
                 </Form.Group>
             </Form>
         <hr />

@@ -3,15 +3,32 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button'
 import './unauthenticated.css';
+import { ErrorHandler } from '../error-handler/error-handler';
 
 export function Unauthenticated(props){
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
+  const [userVerify, setUserVerify] = React.useState(null);
 
   async function loginUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
-  }
+    const response = await fetch('/api/auth/signin', {
+        method: 'POST',
+        body: JSON.stringify({ username: userName, password: password,}),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    });
+    if (response.status === 200) {
+        const data = await response.json();
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('anonymous', data.anonymous);
+        localStorage.setItem('token', data.token);
+        props.onLogin(userName, data.anonymous);
+    } else {
+        const body = await response.json();
+        setUserVerify(body); 
+    }
+}
 
     return (
         <main className="container">
@@ -31,6 +48,7 @@ export function Unauthenticated(props){
                 <div className="row">
                     <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
                 </div>
+                <ErrorHandler error={userVerify}/>
             </div> 
             <p id="createLink">Don't have an account? Create one <a href="/CreateAccount">here</a></p>
         </div>

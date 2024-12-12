@@ -61,3 +61,10 @@ The main structure of the website is now in place.
   - **Database** - mocked up using local storage
 - **Router** - Routing between all neccessary pages (map, help, profile)
 - **Hooks** - SOOO many hooks. I feel like I did nothing but hooks. useState, and useEffect ensure the map and the profile can pass necessary information while also keeping all data up-to-date.
+
+# Service Deliverable
+- **Create An HTTP service** - yessir
+- **Static middleware for frontend** - indubitably
+- **Third party services** - Google Maps/geolocation
+- **Backend service endpoints** - store users/user settings on server. data/heatmap endpoints.
+- **Frontend calls service endpoints** - via fetch

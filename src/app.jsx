@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
-import { Map } from './map/map';
+import { MapPage } from './map/map-page';
 import { Profile } from './profile/profile';
 import { Help } from './help/help';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -84,6 +84,7 @@ export default function App() {
                 <Signin
                     userName={userName}
                     authState={authState}
+                    setAnonymous={anonymous}
                     onAuthChange={(userName, authState) => {
                         setAuthState(authState);
                         setUserName(userName);
@@ -105,7 +106,7 @@ export default function App() {
                 }}
             />}  
         />
-        <Route path='/map' element={<Map 
+        <Route path='/map' element={<MapPage 
             userName={userName}
             anonymous= {anonymous} /> } />
         <Route path='/*' element={<NotFound/>} />
