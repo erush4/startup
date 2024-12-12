@@ -9,6 +9,7 @@ import './app.css';
 import { AuthState } from './sign-in/authState';
 import { Signin } from './sign-in/sign-in';
 import { CreateAccount } from './create-account/create-account';
+import {Redirect} from './redirect'
 
 export default function App() {
     const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
@@ -93,6 +94,7 @@ export default function App() {
             } exact 
         />
         <Route path='/help' element={<Help/>}  />
+        <Route path = '/' element={<Redirect authState={authState}/>}/>
         <Route 
             path='/profile' 
             element={<Profile
@@ -108,6 +110,7 @@ export default function App() {
         />
         <Route path='/map' element={<MapPage 
             userName={userName}
+            authState={authState}
             anonymous= {anonymous} /> } />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/CreateAccount' element={<CreateAccount

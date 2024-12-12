@@ -8,6 +8,8 @@ import './map-page.css';
 import { APIProvider, Map, } from '@vis.gl/react-google-maps';
 import { apikey } from './mapConfig';
 import { Heatmap } from './heatmap';
+import { useNavigate } from 'react-router-dom';
+import { AuthState } from '../sign-in/authState';
 
 export function MapPage(props) {
     const [username, setUserName] = useState(props.userName);
@@ -23,13 +25,15 @@ export function MapPage(props) {
             const ln = (Math.random() * 0.013) - 111.656;
             const newLocation = { lat: lt, lng: ln }; // Create a new location
             const newDataPoint = new DataPoint(randValue, newLocation, 'otherUser'); // Use the new location
-            console.log('New Data Point:', newDataPoint); // Log the new data point
             setDataPoints((prevDataPoints) => [...prevDataPoints, newDataPoint]);
         }, 10000);
         return () => clearInterval(interval);
     }, []);
-    
-    
+    const navigate = useNavigate()
+    useEffect( () =>{ 
+            if (props.authState === AuthState.Unauthenticated) { 
+                navigate('/Signin');
+            }}, [props.authState])
 
     useEffect(() => {
         if (props.anonymous) {
@@ -40,8 +44,7 @@ export function MapPage(props) {
         fetch('/api/data')
             .then((response) => response.json())
             .then((data) => {
-                setDataPoints(data);
-                console.log(data);
+                setDataPoints(data)
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -50,7 +53,6 @@ export function MapPage(props) {
 
     async function addData() {
         const datapoint = new DataPoint(value, location, username);
-        console.log('called', datapoint);
         await fetch('/api/datapoint', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -59,7 +61,6 @@ export function MapPage(props) {
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data);
-                console.log(data);
             })
             .catch((error) => {
                 console.error('Error adding data:', error);
