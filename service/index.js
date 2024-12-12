@@ -11,6 +11,7 @@ app.listen(port, () => {
 });
 
 app.use(express.json());
+app.use(express.static('public'));
 
 let users = {};
 let data = [];
