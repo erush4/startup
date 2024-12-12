@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button'
 import './unauthenticated.css';
 import { ErrorHandler } from '../error-handler/error-handler';
-import { CreateAccount } from '../create-account/create-account';
+import { Link } from 'react-router-dom';
 
 export function Unauthenticated(props){
   const [userName, setUserName] = React.useState(props.userName);
@@ -51,7 +51,7 @@ export function Unauthenticated(props){
                 </div>
                 <ErrorHandler error={userVerify}/>
             </div> 
-            <p id="createLink">Don't have an account? Create one <a href="#" onClick={() => { location.href = '/CreateAccount'; }}>Here</a>
+            <p id="createLink">Don't have an account? Create one <Link to="/CreateAccount">here</Link>
 </p>
 
         </div>

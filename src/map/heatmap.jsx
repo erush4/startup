@@ -20,7 +20,6 @@ export function Heatmap(props) {
       weight: thing.weight
     }
     ));
-    console.log(dataSet)
     heatmap.setData(dataSet);
     heatmap.setMap(map);
   }, [heatmap, map, props.data]); 
