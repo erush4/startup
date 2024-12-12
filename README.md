@@ -68,3 +68,11 @@ The main structure of the website is now in place.
 - **Third party services** - Google Maps/geolocation
 - **Backend service endpoints** - store users/user settings on server. data/heatmap endpoints.
 - **Frontend calls service endpoints** - via fetch
+
+# Login Deliverable
+- **MongoDB Atlas database** - whole and in peak form
+- **Stores data in MongodB** - without a doubt
+- **User registration** account creation page is entirely functional, complete with default settings being created
+- **existing user login** - logs in and recovers saved settings
+- **Stores and retrieves credentials** - spent a lot of time playing with this for the settings. yes it does this successfully
+- **Restricts functionality based on authentication** - Frontend should automatically redirect away from pages that require a login. Backend should reject queries from these pages without the authentication cookie.
