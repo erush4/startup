@@ -12,7 +12,7 @@ export function Heatmap(props) {
       opacity: 0.6 
     });
   }, [visualization]);
-  // creates dataSet?
+  // creates dataSet
   useEffect(() => {
     if (!heatmap) return;
     const dataSet = props.data.map(thing => ( {

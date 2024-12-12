@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthState } from '../sign-in/authState';
 
 export function MapPage(props) {
-    const [username, setUserName] = useState(props.userName);
+    const [username, setUserName] = useState(props.username);
     const [location, setLocation] = useState({ lat: 40.25214576901133, lng: -111.64926838213698 });
     const [value, setValue] = useState(5);
     const [dataPoints, setDataPoints] = useState([]);
@@ -41,7 +41,9 @@ export function MapPage(props) {
         }
     }, [props.anonymous])
     useEffect(() => {
-        fetch('/api/data')
+        fetch('/api/data',{
+            method: 'GET'
+        })
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data)
@@ -53,10 +55,10 @@ export function MapPage(props) {
 
     async function addData() {
         const datapoint = new DataPoint(value, location, username);
-        await fetch('/api/datapoint', {
+        await fetch('/api/datum', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(datapoint)
+            body:JSON.stringify(datapoint)
         })
             .then((response) => response.json())
             .then((data) => {

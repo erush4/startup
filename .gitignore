@@ -1,3 +1,4 @@
 node_modules/
 .vscode/
 mapConfig.js
+dbConfig.json

@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 export function Profile(props){
     const [error, setError] = useState(null);
+    const [anonymous, setAnonymous] = useState(JSON.parse(localStorage.getItem('anonymous')))
 
     const navigate = useNavigate()
     useEffect( () =>{ 
@@ -20,42 +21,40 @@ export function Profile(props){
         }}, [props.authState])
 
     async function setAnon(anonymous) {
-        const token = localStorage.getItem('token');
-        const response = await fetch('/api/settings/anon', {
-            method: 'POST',
+        console.log('prepping')
+        console.log(anonymous)
+        const response = await fetch('/api/user/settings',{
+            method: 'PUT',
             headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ anonymous }), // Correct JSON structure
+            body: JSON.stringify({settings: anonymous})
         });
-    
+        console.log('sent')
         if (!response.ok) {
             const broken = await response.json();
-            setError(`Failed to update anonymous status: ${broken.msg}`);
+            setError(broken.message);
+            return;
         }
     }
-    
-
+     
     const handleChange = (event) => {
         props.setAnonymous(event.target.checked);
         localStorage.setItem('anonymous', event.target.checked);
         setAnon(event.target.checked);
+        setAnonymous(event.target.checked);
     }
 
-    
-    
     async function signout() {
-        fetch(`/api/auth/logout`, {
-          method: 'delete',
+        fetch(`/api/auth/signout`, {
+          method: 'DELETE',
         })
           .catch(() => {   
           })
           .finally(() => {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('anonymous');
-            localStorage.removeItem('token');
-            props.onAuthChange(props.userName, AuthState.Unauthenticated)
+            localStorage.removeItem('username');
+            localStorage.removeItem('anonymous')
+            props.onAuthChange(props.username, AuthState.Unauthenticated)
           });
       }
     return (
@@ -63,12 +62,12 @@ export function Profile(props){
             <h1>Profile</h1>
             <hr />
             <h2>Info</h2>
-                <div> User Name: <span>{props.userName}</span></div>
+                <div> User Name: <span>{props.username}</span></div>
             <h2>Settings</h2>
             <div>Privacy:</div>
             <Form>
                 <Form.Group>
-                    <Form.Switch label='Submit surveys anonymously' name="anonymous" defaultChecked={props.anonymous} onChange={handleChange}/>
+                    <Form.Switch label='Submit surveys anonymously' name="anonymous" defaultChecked={anonymous} onChange={handleChange}/>
                     <Form.Text>Surveys will not be linked to your account. This setting is only in regards to data storage and will not alter the map display.</Form.Text>
                     <ErrorHandler error={error}/>
                 </Form.Group>
@@ -78,7 +77,6 @@ export function Profile(props){
                 onClick={
                     () => {
                         signout(); 
-                        location.href="/Signin"
                     }
                 }
             >Sign Out</Button>

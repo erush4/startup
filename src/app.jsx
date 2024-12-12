@@ -12,10 +12,10 @@ import { CreateAccount } from './create-account/create-account';
 import {Redirect} from './redirect'
 
 export default function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [username, setUserName] = React.useState(localStorage.getItem('username') || '');
+    const currentAuthState = username ? AuthState.Authenticated : AuthState.Unauthenticated;
     const [authState, setAuthState] = React.useState(currentAuthState);
-    const [anonymous, setAnonymous]= React.useState(JSON.parse(localStorage.getItem('anonymous')) || false)
+    const [anonymous, setAnonymous]= React.useState(false)
 
   return (
     <BrowserRouter>
@@ -83,13 +83,13 @@ export default function App() {
             path='/Signin' 
             element={
                 <Signin
-                    userName={userName}
+                    username={username}
                     authState={authState}
-                    setAnonymous={anonymous}
-                    onAuthChange={(userName, authState) => {
+                    onAuthChange={(username, authState) => {
                         setAuthState(authState);
-                        setUserName(userName);
+                        setUserName(username);
 ;                    }}
+                    setAnonymous={setAnonymous} 
                 />
             } exact 
         />
@@ -98,27 +98,27 @@ export default function App() {
         <Route 
             path='/profile' 
             element={<Profile
-                userName={userName}
+                username={username}
                 authState={authState}
                 anonymous={anonymous}
                 setAnonymous={setAnonymous}
-                onAuthChange={(userName, authState) => {
+                onAuthChange={(username, authState) => {
                     setAuthState(authState);
-                    setUserName(userName);
+                    setUserName(username);
                 }}
             />}  
         />
         <Route path='/map' element={<MapPage 
-            userName={userName}
+            username={username}
             authState={authState}
             anonymous= {anonymous} /> } />
         <Route path='/*' element={<NotFound/>} />
         <Route path='/CreateAccount' element={<CreateAccount
-            userName={userName}
+            username={username}
             authState={authState}
-            onAuthChange={(userName, authState) => {
+            onAuthChange={(username, authState) => {
                 setAuthState(authState);
-                setUserName(userName);
+                setUserName(username);
             }}
         />}/>
       </Routes>

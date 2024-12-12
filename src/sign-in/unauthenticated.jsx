@@ -7,29 +7,32 @@ import { ErrorHandler } from '../error-handler/error-handler';
 import { Link } from 'react-router-dom';
 
 export function Unauthenticated(props){
-  const [userName, setUserName] = React.useState(props.userName);
+  const [username, setUserName] = React.useState(props.username);
   const [password, setPassword] = React.useState('');
   const [userVerify, setUserVerify] = React.useState(null);
 
-  async function loginUser() {
-    const response = await fetch('/api/auth/signin', {
+async function loginUser() {
+    const response = await fetch('/api/auth/signin',{
         method: 'POST',
-        body: JSON.stringify({ username: userName, password: password,}),
+        body: JSON.stringify({ username: username, password: password}),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
         },
     });
     if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem('userName', userName);
-        localStorage.setItem('anonymous', data.anonymous);
-        localStorage.setItem('token', data.token);
-        props.onLogin(userName, data.anonymous);
-    } else {
-        const body = await response.json();
-        setUserVerify(body); 
+        await response.json();
+        localStorage.setItem('username', username);
+        const anonCall = await fetch('/api/settings', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'}});
+            const anonData = await anonCall.json()
+            props.onLogin(username, anonData.anonymous);
+            localStorage.setItem('anonymous', anonData.anonymous)
+        } else {
+            await response.json()
+            setUserVerify(response);
+        }
     }
-}
 
     return (
         <main className="container">
@@ -47,7 +50,7 @@ export function Unauthenticated(props){
                     </div>
                 </form>
                 <div className="row">
-                    <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
+                    <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!username || !password}>Sign In</Button>
                 </div>
                 <ErrorHandler error={userVerify}/>
             </div> 
