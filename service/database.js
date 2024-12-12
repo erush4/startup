@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const bcryptjs = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
@@ -32,7 +32,7 @@ function getUserByToken(token) {
 
 async function createUser(username, password) {
   // Hash the password before we insert it into the database
-  const passwordHash = await bcryptjs.hash(password, 10);
+  const passwordHash = await bcrypt.hash(password, 10);
 
   const user = {
     username: username,
@@ -45,26 +45,25 @@ async function createUser(username, password) {
   return user;
 }
 
-async function addDatum(point){
+async function addDatum(point) {
   return dataCollection.insertOne(point);
 }
 
 function getHeatData() {
-  const projection = {location: 1, weight: 1};
-  const cursor = dataCollection.find({}, {projection});
+  const projection = { location: 1, weight: 1 };
+  const cursor = dataCollection.find({}, { projection });
   return cursor.toArray();
 }
 
 function getAnonymous(userId) {
-  query = {userId: userId};
-  const projection = {anonymous: 1};
-  const anonymous = userCollection.find(query, {projection});
-  return anonymous;
+  const query = { userId: userId };
+  const projection = { anonymous: 1 };
+  return userCollection.findOne(query, { projection });
 }
 
 async function setAnonymous(userId, newState) {
-  query= {userId: userId};
-  const update = { $set: {anonymous: newState}};
+  const query = { userId: userId };
+  const update = { $set: { anonymous: newState } };
   const result = await userCollection.updateOne(query, update);
   return result;
 }
@@ -76,5 +75,5 @@ module.exports = {
   getHeatData,
   addDatum,
   getAnonymous,
-  setAnonymous
+  setAnonymous,
 };

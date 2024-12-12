@@ -20,15 +20,13 @@ export function Profile(props){
         }}, [props.authState])
 
     async function setAnon(anonymous) {
-        const token = localStorage.getItem('token');
-        const response = await fetch('/api/settings/anon', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ anonymous }), // Correct JSON structure
-        });
+        fetch('/api/data',{
+            method: 'GET'
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setDataPoints(data)
+            })
     
         if (!response.ok) {
             const broken = await response.json();
@@ -39,23 +37,20 @@ export function Profile(props){
 
     const handleChange = (event) => {
         props.setAnonymous(event.target.checked);
-        localStorage.setItem('anonymous', event.target.checked);
         setAnon(event.target.checked);
     }
 
     
     
     async function signout() {
-        fetch(`/api/auth/logout`, {
-          method: 'delete',
+        fetch(`/api/auth/signout`, {
+          method: 'DELETE',
         })
           .catch(() => {   
           })
           .finally(() => {
-            localStorage.removeItem('userName');
-            localStorage.removeItem('anonymous');
-            localStorage.removeItem('token');
-            props.onAuthChange(props.userName, AuthState.Unauthenticated)
+            localStorage.removeItem('username');
+            props.onAuthChange(props.username, AuthState.Unauthenticated)
           });
       }
     return (
@@ -63,7 +58,7 @@ export function Profile(props){
             <h1>Profile</h1>
             <hr />
             <h2>Info</h2>
-                <div> User Name: <span>{props.userName}</span></div>
+                <div> User Name: <span>{props.username}</span></div>
             <h2>Settings</h2>
             <div>Privacy:</div>
             <Form>

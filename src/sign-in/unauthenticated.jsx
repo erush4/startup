@@ -7,24 +7,29 @@ import { ErrorHandler } from '../error-handler/error-handler';
 import { Link } from 'react-router-dom';
 
 export function Unauthenticated(props){
-  const [userName, setUserName] = React.useState(props.userName);
+  const [username, setUserName] = React.useState(props.username);
   const [password, setPassword] = React.useState('');
   const [userVerify, setUserVerify] = React.useState(null);
 
   async function loginUser() {
     const response = await fetch('/api/auth/signin', {
         method: 'POST',
-        body: JSON.stringify({ username: userName, password: password,}),
+        body: JSON.stringify({ username: username, password: password}),
         headers: {
             'Content-type': 'application/json; charset=UTF-8',
         },
     });
     if (response.status === 200) {
-        const data = await response.json();
-        localStorage.setItem('userName', userName);
-        localStorage.setItem('anonymous', data.anonymous);
-        localStorage.setItem('token', data.token);
-        props.onLogin(userName, data.anonymous);
+        await response.json();
+        localStorage.setItem('username', username);
+        fetch('/api/settings', {
+            method: 'GET',
+        })
+        .then((response) => response.json())
+        .then((anon) => {
+            props.onLogin(username, anon);
+        })
+        
     } else {
         const body = await response.json();
         setUserVerify(body); 
@@ -47,7 +52,7 @@ export function Unauthenticated(props){
                     </div>
                 </form>
                 <div className="row">
-                    <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>Sign In</Button>
+                    <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!username || !password}>Sign In</Button>
                 </div>
                 <ErrorHandler error={userVerify}/>
             </div> 

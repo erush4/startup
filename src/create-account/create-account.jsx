@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './create-account.css';
 import { Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { AuthState } from "../sign-in/authState";
 import { ErrorHandler } from "../error-handler/error-handler";
+import { useNavigate } from "react-router-dom";
 
 export function CreateAccount(props) {
-    const [userName, setUserName] = React.useState(props.userName);
+    const [username, setUserName] = React.useState(props.username);
     const [password, setPassword] = React.useState('');
     const [passwordVerify, setPasswordVerify] = React.useState('');
     const [userVerify, setUserVerify] = React.useState(null);
+
+    const navigate = useNavigate()
+    useEffect( () =>{ 
+        if (props.authState === AuthState.Authenticated) { 
+            navigate('/Map');
+        }}, [props.authState])
 
     function PasswordVerification() {
         if (password === '') {
@@ -27,21 +34,22 @@ export function CreateAccount(props) {
 
     async function createUser() {
         const response = await fetch('/api/auth/create', {
-            method: 'post',
-            body: { username: userName, password: password },
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
+          method: 'POST',
+          body: JSON.stringify({ username: username, password: password }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
         });
-        if (response.status === 200) {
-            const data = await response.json();
-            props.onAuthChange(userName, AuthState.Authenticated);
-            location.href = '/Signin';
-        } else {
+      
+        if (response?.status === 200) {
+            localStorage.setItem('username', username);
+            props.onLogin(username);
+          } else {
             const body = await response.json();
-            setUserVerify(body); 
+            setUserVerify(body);
+          }
         }
-    }
+      
 
     return (
         <main className="container">
@@ -50,7 +58,7 @@ export function CreateAccount(props) {
                 <Form>
                     <Form.Group className='mb-3' controlId='formUsername'>
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type='text' placeholder="username" value={userName} onChange={(u) => setUserName(u.target.value)}></Form.Control>
+                        <Form.Control type='text' placeholder="username" value={username} onChange={(u) => setUserName(u.target.value)}></Form.Control>
                         <Form.Text>This is the name people will see associated with your surveys.</Form.Text>
                         <ErrorHandler error={userVerify}/>
                     </Form.Group>
@@ -65,7 +73,7 @@ export function CreateAccount(props) {
                         <PasswordVerification />
                     </Form.Group>
                 </Form>
-                <Button variant='primary' type='submit' onClick={() => { createUser() }} disabled={!userName || !password || passwordVerify !== password}>Create</Button>
+                <Button variant='primary' type='submit' onClick={() => { createUser() }} disabled={!username || !password || passwordVerify !== password}>Create</Button>
                 
             </div>
         </main>

@@ -4,7 +4,7 @@ import { Unauthenticated } from './unauthenticated';
 import { Authenticated } from './authenticated';
 import { AuthState } from './authState';
 
-export function Signin({ userName, authState, onAuthChange }) {
+export function Signin({ username, authState, onAuthChange }) {
   return (
     <main className='container text-center'>
       <div>
@@ -14,7 +14,7 @@ export function Signin({ userName, authState, onAuthChange }) {
         )}
         {authState === AuthState.Unauthenticated && (
           <Unauthenticated
-            userName={userName}
+            username={username}
             onLogin={(loginUserName, anonSetting) => {
               onAuthChange(loginUserName, AuthState.Authenticated);
               props.setAnonymous(anonSetting);
