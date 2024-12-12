@@ -34,7 +34,9 @@ export function CreateAccount(props) {
             },
         });
         if (response.status === 200) {
-            localStorage.setItem('userName', userName);
+            const data = await response.json();
+                localStorage.setItem('userName', userName);
+                localStorage.setItem('token', data.token);
 
             props.onAuthChange(userName, AuthState.Authenticated);
             location.href = '/Signin';

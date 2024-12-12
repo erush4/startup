@@ -17,7 +17,7 @@ export function Signin({ userName, authState, onAuthChange }) {
             userName={userName}
             onLogin={(loginUserName, anonSetting) => {
               onAuthChange(loginUserName, AuthState.Authenticated);
-              setAnonymous(anonSetting);
+              props.setAnonymous(anonSetting);
             }}
           />
         )}
