@@ -6,10 +6,18 @@ import { Button} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import { AuthState } from '../sign-in/authState';
 import { ErrorHandler } from '../error-handler/error-handler';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export function Profile(props){
     const [error, setError] = useState(null);
+
+    const navigate = useNavigate()
+    useEffect( () =>{ 
+        if (props.authState === AuthState.Unauthenticated) { 
+            navigate('/Signin');
+        }}, [props.authState])
 
     async function setAnon(anonymous) {
         const token = localStorage.getItem('token');
@@ -70,7 +78,7 @@ export function Profile(props){
                 onClick={
                     () => {
                         signout(); 
-                        location.href="/signin"
+                        location.href="/Signin"
                     }
                 }
             >Sign Out</Button>

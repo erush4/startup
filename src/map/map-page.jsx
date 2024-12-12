@@ -8,6 +8,8 @@ import './map-page.css';
 import { APIProvider, Map, } from '@vis.gl/react-google-maps';
 import { apikey } from './mapConfig';
 import { Heatmap } from './heatmap';
+import { useNavigate } from 'react-router-dom';
+import { AuthState } from '../sign-in/authState';
 
 export function MapPage(props) {
     const [username, setUserName] = useState(props.userName);
@@ -27,8 +29,11 @@ export function MapPage(props) {
         }, 10000);
         return () => clearInterval(interval);
     }, []);
-    
-    
+    const navigate = useNavigate()
+    useEffect( () =>{ 
+            if (props.authState === AuthState.Unauthenticated) { 
+                navigate('/Signin');
+            }}, [props.authState])
 
     useEffect(() => {
         if (props.anonymous) {
