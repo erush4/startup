@@ -28,16 +28,13 @@ export function CreateAccount(props) {
     async function createUser() {
         const response = await fetch('/api/auth/create', {
             method: 'post',
-            body: JSON.stringify({ username: userName, password: password }),
+            body: { username: userName, password: password },
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         });
         if (response.status === 200) {
             const data = await response.json();
-                localStorage.setItem('userName', userName);
-                localStorage.setItem('token', data.token);
-
             props.onAuthChange(userName, AuthState.Authenticated);
             location.href = '/Signin';
         } else {

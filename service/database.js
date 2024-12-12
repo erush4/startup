@@ -1,22 +1,26 @@
 const { MongoClient } = require('mongodb');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
 
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
-const db = client.db('startup');
-const userCollection = db.collection('user')
-const dataCollection = db.collection('data')
 
-// This will asynchronously test the connection and exit the process if it fails
+let db, userCollection, dataCollection;
+
 (async function testConnection() {
-  await client.connect();
-  await db.command({ ping: 1 });
-})().catch((ex) => {
-  console.log(`Unable to connect to database with ${url} because ${ex.message}`);
-  process.exit(1);
-});
+  try {
+    await client.connect();
+    db = client.db('startup');
+    userCollection = db.collection('user');
+    dataCollection = db.collection('data');
+    await db.command({ ping: 1 });
+    console.log("Connected successfully to database");
+  } catch (ex) {
+    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    process.exit(1);
+  }
+})();
 
 function getUser(username) {
   return userCollection.findOne({ username: username });
@@ -28,7 +32,7 @@ function getUserByToken(token) {
 
 async function createUser(username, password) {
   // Hash the password before we insert it into the database
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash = await bcryptjs.hash(password, 10);
 
   const user = {
     username: username,
