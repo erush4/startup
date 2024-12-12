@@ -88,11 +88,23 @@ secureApiRouter.post('/datum', async (req, res) =>{
    
 
 // get settings (anonymous is the only one)
-secureApiRouter.post('/settings', async (req, res) => {
+secureApiRouter.get('/settings', async (req, res) => {
     const userId = req.user._id;
     const settings = await DB.getSettings(userId);
     res.send(settings);
 })
+
+//set settings
+secureApiRouter.put('/user/settings', async (req, res) => {
+    const userId = req.user._id; 
+    const newState = req.body.settings; 
+    const result = await setAnonymous(userId, newState); 
+    if (result.modifiedCount > 0) {
+      res.send({ msg: 'Settings updated successfully' });
+    } else {
+      res.status(400).send({ msg: 'Failed to update settings' });
+    }
+  });
 
 // Default error handler
 app.use(function (err, req, res, next) {

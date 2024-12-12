@@ -46,16 +46,23 @@ async function addDatum(point){
 }
 
 function getHeatData() {
-  const projection = {location: 1, weight: 1}
+  const projection = {location: 1, weight: 1};
   const cursor = dataCollection.find({}, {projection});
   return cursor.toArray();
 }
 
 function getAnonymous(userId) {
-  query = {userId: userId}
-  const projection = {anonymous: 1}
-  const anonymous = userCollection.find(query, {projection})
+  query = {userId: userId};
+  const projection = {anonymous: 1};
+  const anonymous = userCollection.find(query, {projection});
   return anonymous;
+}
+
+async function setAnonymous(userId, newState) {
+  query= {userId: userId};
+  const update = { $set: {anonymous: newState}};
+  const result = await userCollection.updateOne(query, update);
+  return result;
 }
 
 module.exports = {
@@ -65,4 +72,5 @@ module.exports = {
   getHeatData,
   addDatum,
   getAnonymous,
+  setAnonymous
 };
