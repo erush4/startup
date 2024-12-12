@@ -72,36 +72,18 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 // Get datapoints
-apiRouter.get('/data', (_req, res) => {
-    console.log('called', heatmap)
-    res.send(heatmap);
+apiRouter.get('/data', async (req, res) =>{
+    const data = await DB.getHeatData();
+    res.send(data)
 });
 
 // Add datapoints
-apiRouter.post('/datapoint', (req, res) => {
-    console.log('called')
-    let point = req.body;
-    heatPoint = {
-        location: point.location,
-        weight: point.value
-    };
-    for (let thing of data) {
-        if (thing.location === heatPoint.location) {
-            thing.value = heatPoint.weight;
-            thing.username = point.username;
-            return data;
-        }
-    }
-    data.push(point);
-    heatmap.push(heatPoint);
-    res.send(heatmap);
-    if (data.length > 2000) {
-        data.length = 2000;
-    }
-    if (heatmap.length > 200) {
-        heatmap.length = 200;
-    }
-});
+secureApiRouter.post('/datum', async (req, res) =>{
+    const datum = {...req.body, ip: req.ip};
+    await DB.addDatum(datum);
+    const data = await DB.getHeatData();
+    res.send(data);
+})
 
 // Token authentication middleware
 function authenticateToken(req, res, next) {

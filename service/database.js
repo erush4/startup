@@ -6,6 +6,8 @@ const config = require('./dbConfig.json');
 const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostname}`;
 const client = new MongoClient(url);
 const db = client.db('startup');
+const userCollection = db.collection('user')
+const dataCollection = db.collection('data')
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -38,8 +40,20 @@ async function createUser(username, password) {
   return user;
 }
 
+async function addDatum(point){
+  return dataCollection.insertOne(point);
+}
+
+function getHeatData() {
+  const projection = {location: 1, weight: 1}
+  const cursor = dataCollection.find({}, {projection});
+  return cursor.toArray();
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
+  getHeatData,
+  addDatum,
 };
