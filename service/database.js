@@ -58,7 +58,8 @@ async function getHeatData() {
 async function getAnonymous(userId) {
   const query = { _id: userId };
   const projection = { anonymous: 1 };
- return  userCollection.findOne(query, { projection });
+ const thing =  userCollection.findOne(query, { projection });
+ return thing;
   
 }
 

@@ -11,31 +11,28 @@ export function Unauthenticated(props){
   const [password, setPassword] = React.useState('');
   const [userVerify, setUserVerify] = React.useState(null);
 
-  async function loginUser() {
-    const response = await fetch('/api/auth/signin', {
+async function loginUser() {
+    const response = await fetch('/api/auth/signin',{
         method: 'POST',
         body: JSON.stringify({ username: username, password: password}),
         headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            'Content-Type': 'application/json; charset=UTF-8',
         },
     });
     if (response.status === 200) {
         await response.json();
         localStorage.setItem('username', username);
-        fetch('/api/settings', {
+        const anonCall = await fetch('/api/settings', {
             method: 'GET',
-        })
-        .then((response) => response.json())
-        .then((anon) => {
-            console.log(here)
-            props.onLogin(username, anon);
-        })
-        
-    } else {
-        const body = await response.json();
-        setUserVerify(body); 
+            headers: {'Content-Type': 'application/json'}});
+            const anonData = await anonCall.json()
+            props.onLogin(username, anonData.anonymous);
+            localStorage.setItem('anonymous', anonData.anonymous)
+        } else {
+            await response.json()
+            setUserVerify(response);
+        }
     }
-}
 
     return (
         <main className="container">

@@ -85,11 +85,11 @@ export default function App() {
                 <Signin
                     username={username}
                     authState={authState}
-                    setAnonymous={anonymous}
                     onAuthChange={(username, authState) => {
                         setAuthState(authState);
                         setUserName(username);
 ;                    }}
+                    setAnonymous={setAnonymous} 
                 />
             } exact 
         />

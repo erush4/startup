@@ -71,13 +71,13 @@ secureApiRouter.use(async (req, res, next) => {
 });
 
 // Get datapoints
-apiRouter.get('/data', async (req, res, next) => {
+apiRouter.get('/data', async (req, res) => {
     const data = await DB.getHeatData();
     res.send(data);
 });
 
 // Add datapoints
-secureApiRouter.post('/datum', async (req, res, next) => {
+secureApiRouter.post('/datum', async (req, res) => {
 
     const datum = { ...req.body, ip: req.ip };
     await DB.addDatum(datum);
@@ -85,18 +85,22 @@ secureApiRouter.post('/datum', async (req, res, next) => {
     res.send(data);
 });
 // Get settings (anonymous is the only one)
-secureApiRouter.get('/settings', async (req, res, next) => {
+secureApiRouter.get('/settings', async (req, res) => {
     const userId = req.user._id;
     const settings = await DB.getAnonymous(userId);
-    console.log(settings)
     res.send(settings);
 });
 
 // Set settings
-secureApiRouter.put('/user/settings', async (req, res, next) => {
+secureApiRouter.put('/user/settings', async (req, res,) => {
+  console.log('received');
+    console.log(req.body);
     const userId = req.user._id;
+    console.log(userId);
     const newState = req.body.settings;
+    console.log(newState);
     const result = await DB.setAnonymous(userId, newState);
+    console.log(result);
     if (result.modifiedCount > 0) {
       res.send({ message: 'Settings updated successfully' });
     } else {
