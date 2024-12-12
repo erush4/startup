@@ -7,7 +7,7 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
-  
+
   app.listen(port, () => {
 	console.log(`Listening on port ${port}`);
   });
@@ -54,11 +54,13 @@ apiRouter.delete('/auth/signout', (req, res) => {
 
 // Get datapoints
 apiRouter.get('/data', (_req, res) => {
+    console.log('called', heatmap)
     res.send(heatmap);
 });
 
 // Add datapoints
 apiRouter.post('/datapoint', (req, res) => {
+    console.log('called')
     let point = req.body;
     heatPoint = {
         location: point.location,
@@ -104,4 +106,6 @@ apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
     res.status(204).end();
 });
 
-
+app.use((_req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+  });
