@@ -65,6 +65,7 @@ secureApiRouter.use(async (req, res, next) => {
   const authToken = req.cookies[authCookieName];
   const user = await DB.getUserByToken(authToken);
   if (user) {
+    req.user = user;
     next();
   } else {
     res.status(401).send({ msg: 'Unauthorized' });
@@ -84,28 +85,14 @@ secureApiRouter.post('/datum', async (req, res) =>{
     const data = await DB.getHeatData();
     res.send(data);
 })
+   
 
-// Token authentication middleware
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) return res.status(401).send({ msg: 'No token provided' });
-
-    const token = authHeader.split(' ')[1]; // Extract the token from the "Bearer <token>" format
-    if (!token) return res.status(401).send({ msg: 'No token provided' });
-
-    const user = Object.values(users).find(user => user.token === token);
-    if (!user) return res.status(403).send({ msg: 'Invalid token' });
-
-    req.user = user;
-    next();
-}
-
-// Set anonymous (protected route)
-apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
-    const user = req.user;
-    user.anonymous = req.body.anonymous;
-    res.status(204).end();
-});
+// get settings (anonymous is the only one)
+secureApiRouter.post('/settings', async (req, res) => {
+    const userId = req.user._id;
+    const settings = await DB.getSettings(userId);
+    res.send(settings);
+})
 
 // Default error handler
 app.use(function (err, req, res, next) {
@@ -115,70 +102,17 @@ app.use(function (err, req, res, next) {
   // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
-  });
+});
   
-  // setAuthCookie in the HTTP response
-  function setAuthCookie(res, authToken) {
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
     res.cookie(authCookieName, authToken, {
-      secure: true,
-      httpOnly: true,
-      sameSite: 'strict',
-    });
-  }
-  app.listen(port, () => {
-	console.log(`Listening on port ${port}`);
-  });
-
-// Get datapoints
-apiRouter.get('/data', (_req, res) => {
-    console.log('called', heatmap)
-    res.send(heatmap);
+        secure: true,
+        httpOnly: true,
+        sameSite: 'strict',
 });
-
-// Add datapoints
-apiRouter.post('/datapoint', (req, res) => {
-    console.log('called')
-    let point = req.body;
-    heatPoint = {
-        location: point.location,
-        weight: point.value
-    };
-    for (let thing of data) {
-        if (thing.location === heatPoint.location) {
-            thing.value = heatPoint.weight;
-            thing.username = point.username;
-            return data;
-        }
-    }
-    data.push(point);
-    heatmap.push(heatPoint);
-    res.send(heatmap);
-    if (data.length > 2000) {
-        data.length = 2000;
-    }
-    if (heatmap.length > 200) {
-        heatmap.length = 200;
-    }
-});
-
-// Token authentication middleware
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    if (!authHeader) return res.status(401).send({ msg: 'No token provided' });
-
-    const token = authHeader.split(' ')[1]; // Extract the token from the "Bearer <token>" format
-    if (!token) return res.status(401).send({ msg: 'No token provided' });
-
-    const user = Object.values(users).find(user => user.token === token);
-    if (!user) return res.status(403).send({ msg: 'Invalid token' });
-
-    req.user = user;
-    next();
 }
 
-// Set anonymous (protected route)
-apiRouter.post('/settings/anon', authenticateToken, (req, res) => {
-    const user = req.user;
-    user.anonymous = req.body.anonymous;
-    res.status(204).end();
+const httpService = app.listen(port, () => {
+    console.log(`Listening on port ${port}`);
 });

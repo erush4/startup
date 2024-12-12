@@ -33,6 +33,7 @@ async function createUser(username, password) {
   const user = {
     username: username,
     password: passwordHash,
+    anonymous: false,
     token: uuid.v4(),
   };
   await userCollection.insertOne(user);
@@ -50,10 +51,18 @@ function getHeatData() {
   return cursor.toArray();
 }
 
+function getAnonymous(userId) {
+  query = {userId: userId}
+  const projection = {anonymous: 1}
+  const anonymous = userCollection.find(query, {projection})
+  return anonymous;
+}
+
 module.exports = {
   getUser,
   getUserByToken,
   createUser,
   getHeatData,
   addDatum,
+  getAnonymous,
 };
