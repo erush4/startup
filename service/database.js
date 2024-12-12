@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient} = require('mongodb');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const config = require('./dbConfig.json');
@@ -22,11 +22,11 @@ let db, userCollection, dataCollection;
   }
 })();
 
-function getUser(username) {
+async function getUser(username) {
   return userCollection.findOne({ username: username });
 }
 
-function getUserByToken(token) {
+async function getUserByToken(token) {
   return userCollection.findOne({ token: token });
 }
 
@@ -49,20 +49,21 @@ async function addDatum(point) {
   return dataCollection.insertOne(point);
 }
 
-function getHeatData() {
+async function getHeatData() {
   const projection = { location: 1, weight: 1 };
   const cursor = dataCollection.find({}, { projection });
   return cursor.toArray();
 }
 
-function getAnonymous(userId) {
-  const query = { userId: userId };
+async function getAnonymous(userId) {
+  const query = { _id: userId };
   const projection = { anonymous: 1 };
-  return userCollection.findOne(query, { projection });
+ return  userCollection.findOne(query, { projection });
+  
 }
 
 async function setAnonymous(userId, newState) {
-  const query = { userId: userId };
+  const query = { _id: userId };
   const update = { $set: { anonymous: newState } };
   const result = await userCollection.updateOne(query, update);
   return result;

@@ -27,6 +27,7 @@ export function Unauthenticated(props){
         })
         .then((response) => response.json())
         .then((anon) => {
+            console.log(here)
             props.onLogin(username, anon);
         })
         

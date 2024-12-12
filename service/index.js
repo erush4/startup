@@ -63,6 +63,7 @@ secureApiRouter.use(async (req, res, next) => {
   const authToken = req.cookies[authCookieName];
   const user = await DB.getUserByToken(authToken);
   if (user) {
+    req.user = user;
     next();
   } else {
     res.status(401).send({ message: 'Unauthorized' });
@@ -85,9 +86,9 @@ secureApiRouter.post('/datum', async (req, res, next) => {
 });
 // Get settings (anonymous is the only one)
 secureApiRouter.get('/settings', async (req, res, next) => {
-
     const userId = req.user._id;
     const settings = await DB.getAnonymous(userId);
+    console.log(settings)
     res.send(settings);
 });
 
