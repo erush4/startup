@@ -8,3 +8,4 @@ export function Redirect(props) {
         navigate('/Signin');
     }, [navigate]);
     return (<div>loading...</div>);
+}
