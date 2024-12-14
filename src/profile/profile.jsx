@@ -21,8 +21,6 @@ export function Profile(props){
         }}, [props.authState])
 
     async function setAnon(anonymous) {
-        console.log('prepping')
-        console.log(anonymous)
         const response = await fetch('/api/user/settings',{
             method: 'PUT',
             headers: {
@@ -30,7 +28,6 @@ export function Profile(props){
             },
             body: JSON.stringify({settings: anonymous})
         });
-        console.log('sent')
         if (!response.ok) {
             const broken = await response.json();
             setError(broken.message);

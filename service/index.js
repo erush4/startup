@@ -94,14 +94,9 @@ secureApiRouter.get('/settings', async (req, res) => {
 
 // Set settings
 secureApiRouter.put('/user/settings', async (req, res,) => {
-  console.log('received');
-    console.log(req.body);
     const userId = req.user._id;
-    console.log(userId);
     const newState = req.body.settings;
-    console.log(newState);
     const result = await DB.setAnonymous(userId, newState);
-    console.log(result);
     if (result.modifiedCount > 0) {
       res.send({ message: 'Settings updated successfully' });
     } else {
