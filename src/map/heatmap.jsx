@@ -12,6 +12,7 @@ export function Heatmap(props) {
       opacity: 0.6 
     });
   }, [visualization]);
+  
   // creates dataSet
   useEffect(() => {
     if (!heatmap) return;
@@ -20,6 +21,7 @@ export function Heatmap(props) {
       weight: thing.weight
     }
     ));
+    
     heatmap.setData(dataSet);
     heatmap.setMap(map);
   }, [heatmap, map, props.data]); 

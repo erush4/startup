@@ -4,6 +4,7 @@ const uuid = require('uuid');
 const bcrypt = require('bcrypt');
 const app = express();
 const DB = require('./database.js');
+const {peerProxy} = require('./peerProxy.js')
 
 const authCookieName = 'token';
 
@@ -93,14 +94,9 @@ secureApiRouter.get('/settings', async (req, res) => {
 
 // Set settings
 secureApiRouter.put('/user/settings', async (req, res,) => {
-  console.log('received');
-    console.log(req.body);
     const userId = req.user._id;
-    console.log(userId);
     const newState = req.body.settings;
-    console.log(newState);
     const result = await DB.setAnonymous(userId, newState);
-    console.log(result);
     if (result.modifiedCount > 0) {
       res.send({ message: 'Settings updated successfully' });
     } else {
@@ -130,3 +126,5 @@ function setAuthCookie(res, authToken) {
 const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+peerProxy(httpService)

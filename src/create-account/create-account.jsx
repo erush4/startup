@@ -18,6 +18,11 @@ export function CreateAccount(props) {
             navigate('/Map');
         }}, [props.authState])
 
+    function onLogin() {
+        props.onAuthChange(username, AuthState.Authenticated);
+        props.setAnonymous(false)
+        localStorage.setItem('anonymous', false);
+    }
     function PasswordVerification() {
         if (password === '') {
             return (<br />);
@@ -43,7 +48,7 @@ export function CreateAccount(props) {
       
         if (response?.status === 200) {
             localStorage.setItem('username', username);
-            props.onLogin(username);
+            onLogin(username);
           } else {
             const body = await response.json();
             setUserVerify(body);
