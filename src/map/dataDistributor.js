@@ -1,7 +1,7 @@
 class DataPoint {
     constructor(value, location, user){
         this.type = 'Y'
-        this.value = value;
+        this.weight = value;
         this.location = location ;
         this.username = user;
     }
@@ -29,7 +29,11 @@ class DataDistributor {
             this.socket.send(JSON.stringify(datum))
         } else {
             this.socket.addEventListener('open', () => {
-                this.socket.send(JSON.stringify(datum))
+                heatdatum = {
+                    location: datum.location,
+                    weight: datum.weight
+                }
+                this.socket.send(JSON.stringify(heatdatum))
             })
         }
       }

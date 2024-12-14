@@ -46,11 +46,16 @@ export function MapPage(props) {
             });
     }, []);
 
-    //create WebSocket for updating data in real time
-
+    //create WebSocket for updating data in real time -- merging server and websocket data
+    useEffect(() => {
+        const combinedData = [...dataPoints, ...Distributor.data];
+        setDataPoints(combinedData);
+    }, [Distributor.data]);
+    
     //adding data when submitting surveys
     async function addData() {
         const datapoint = new DataPoint(value, location, username);
+        Distributor.broadcastDatum(datapoint);
         await fetch('/api/datum', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -59,7 +64,6 @@ export function MapPage(props) {
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data);
-                Distributor.broadcastDatum(datapoint);
             })
             .catch((error) => {
                 console.error('Error adding data:', error);
