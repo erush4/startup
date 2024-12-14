@@ -42,7 +42,6 @@ function peerProxy(httpServer) {
 
   // Keep active connections alive
   setInterval(() => {
-    console.log('interval')
     connections.forEach((c) => {
       // Kill any connection that didn't respond to the ping last time
       if (!c.alive) {

@@ -18,22 +18,29 @@ class DataDistributor {
 
         this.socket.onmessage = async (msg) => {
           try {
-            const datum = JSON.parse(await msg.data());
-            this.data.push(datum);
-          } catch {}
+            console.log('gotdata')
+            const datum = JSON.parse(await msg.data.text());
+            console.log(datum)
+            let heatdatum = {
+              location: datum.location,
+              weight: datum.weight
+          }
+            this.data.push(heatdatum);
+            console.log(heatdatum)
+            console.log(this.data)
+          } catch (error){
+            console.error(error)
+          }
         };
       }
 
       broadcastDatum(datum){
+        console.log('newdata')
         if (this.socket.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(datum))
         } else {
             this.socket.addEventListener('open', () => {
-                heatdatum = {
-                    location: datum.location,
-                    weight: datum.weight
-                }
-                this.socket.send(JSON.stringify(heatdatum))
+                this.socket.send(JSON.stringify(datum))
             })
         }
       }
