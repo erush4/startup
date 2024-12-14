@@ -40,7 +40,6 @@ export function MapPage(props) {
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data)
-                console.log(dataPoints)
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -52,7 +51,6 @@ export function MapPage(props) {
     useEffect(() => {
          const handleNewData = (newData) => { 
             setDataPoints(newData); 
-            console.log('datapoints now set to', newData)
         }; 
         Distributor.addListener(handleNewData); 
         return () => { 

@@ -26,7 +26,6 @@ class DataDistributor {
           }
             this.data.push(heatdatum);
             this.notifyListeners();
-            console.log('datadistributor updated to:', this.data);
           } catch (error){
             console.error(error)
           }
@@ -45,12 +44,10 @@ class DataDistributor {
       } 
        
       notifyListeners() { 
-        console.log('sending new data', this.data)
         this.listeners.forEach(listener => listener(this.data));
       }
 
       broadcastDatum(datum){
-        console.log('newdata', datum)
         if (this.socket.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(datum))
         } else {
