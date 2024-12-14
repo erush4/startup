@@ -73,6 +73,15 @@ The main structure of the website is now in place.
 - **MongoDB Atlas database** - whole and in peak form
 - **Stores data in MongodB** - without a doubt
 - **User registration** account creation page is entirely functional, complete with default settings being created
-- **existing user login** - logs in and recovers saved settings
+- **existing user login** - sucessfully logs in and recovers saved settings
 - **Stores and retrieves credentials** - spent a lot of time playing with this for the settings. yes it does this successfully
 - **Restricts functionality based on authentication** - Frontend should automatically redirect away from pages that require a login. Backend should reject queries from these pages without the authentication cookie.
+
+# WebSocket Deliverable
+- **Backend listens for WebSocket connection** - veritably so
+- **Frontend makes WebSocket connection** - unquestionably so
+- **Data sent over WebSocket connection** - undeniably so
+- **Websocket data displayed** - speedily and with great precision
+- **All visible elements are working** - yes... although I have way more I'd like to implement (like other lots besides Y lots). But, for the purposes of this class, every element that needs displaying is displayed perfectly. 
+
+# More features coming soon!
