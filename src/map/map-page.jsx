@@ -40,6 +40,7 @@ export function MapPage(props) {
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data)
+                console.log(dataPoints)
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -47,10 +48,18 @@ export function MapPage(props) {
     }, []);
 
     //create WebSocket for updating data in real time -- merging server and websocket data
+    // Listen to WebSocket data 
     useEffect(() => {
-        const combinedData = [...dataPoints, ...Distributor.data];
-        setDataPoints(combinedData);
-    }, [Distributor.data]);
+         const handleNewData = (newData) => { 
+            setDataPoints(newData); 
+            console.log('datapoints now set to', newData)
+        }; 
+        Distributor.addListener(handleNewData); 
+        return () => { 
+            Distributor.removeListener(handleNewData); 
+        }; 
+    }, []);
+      
     
     //adding data when submitting surveys
     async function addData() {

@@ -8,6 +8,7 @@ class DataPoint {
 }
 class DataDistributor {
     data=[]
+    listeners=[]
     
     constructor() {
         let port = window.location.port;
@@ -18,24 +19,38 @@ class DataDistributor {
 
         this.socket.onmessage = async (msg) => {
           try {
-            console.log('gotdata')
             const datum = JSON.parse(await msg.data.text());
-            console.log(datum)
             let heatdatum = {
               location: datum.location,
               weight: datum.weight
           }
             this.data.push(heatdatum);
-            console.log(heatdatum)
-            console.log(this.data)
+            this.notifyListeners();
+            console.log('datadistributor updated to:', this.data);
           } catch (error){
             console.error(error)
           }
         };
       }
 
+      
+      addListener(callback) { 
+        this.listeners.push(callback); 
+      }
+      
+      removeListener(callback) { 
+        this.listeners = this.listeners.filter(
+          listener => listener !== callback
+        ); 
+      } 
+       
+      notifyListeners() { 
+        console.log('sending new data', this.data)
+        this.listeners.forEach(listener => listener(this.data));
+      }
+
       broadcastDatum(datum){
-        console.log('newdata')
+        console.log('newdata', datum)
         if (this.socket.readyState === WebSocket.OPEN) {
             this.socket.send(JSON.stringify(datum))
         } else {
