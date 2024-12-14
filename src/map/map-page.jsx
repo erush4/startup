@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Survey } from './survey/survey';
-import { DataPoint } from './data-point';
+import { DataPoint, Distributor} from './dataDistributor'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './map-page.css';
@@ -18,28 +18,21 @@ export function MapPage(props) {
     const [dataPoints, setDataPoints] = useState([]);
     const[fetching, setFetching] = useState(false);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const randValue = Math.floor(Math.random() * 10) + 1;
-            const lt = (Math.random() * 0.013) + 40.243;
-            const ln = (Math.random() * 0.013) - 111.656;
-            const newLocation = { lat: lt, lng: ln }; // Create a new location
-            const newDataPoint = new DataPoint(randValue, newLocation, 'otherUser'); // Use the new location
-            setDataPoints((prevDataPoints) => [...prevDataPoints, newDataPoint]);
-        }, 10000);
-        return () => clearInterval(interval);
-    }, []);
     const navigate = useNavigate()
+    //if not signed in, reroute to signin page
     useEffect( () =>{ 
             if (props.authState === AuthState.Unauthenticated) { 
                 navigate('/Signin');
-            }}, [props.authState])
+            }}, [props.authState]);
 
+    //set user name to anonymous for surveys
     useEffect(() => {
         if (props.anonymous) {
             setUserName('Anon');
         }
-    }, [props.anonymous])
+    }, [props.anonymous]);
+
+    // initialize data with server data
     useEffect(() => {
         fetch('/api/data',{
             method: 'GET'
@@ -53,6 +46,9 @@ export function MapPage(props) {
             });
     }, []);
 
+    //create WebSocket for updating data in real time
+
+    //adding data when submitting surveys
     async function addData() {
         const datapoint = new DataPoint(value, location, username);
         await fetch('/api/datum', {
@@ -63,6 +59,7 @@ export function MapPage(props) {
             .then((response) => response.json())
             .then((data) => {
                 setDataPoints(data);
+                Distributor.broadcastDatum(datapoint);
             })
             .catch((error) => {
                 console.error('Error adding data:', error);

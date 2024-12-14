@@ -22,22 +22,22 @@ class DataDistributor {
         };
       }
 
-      broadcastDatum(value, location, user){
-        const datum = new DataPoint(value, location, user);
-        this.socketsend(JSON.stringify(datum))
+      broadcastDatum(datum){
+        if (this.socket.readyState === WebSocket.OPEN) {
+            this.socket.send(JSON.stringify(datum))
+        } else {
+            this.socket.addEventListener('open', () => {
+                this.socket.send(JSON.stringify(datum))
+            })
+        }
+        
       }
 
       receiveEvent(datum) {
         this.data.push(datum);
-    
-        this.data.forEach((e) => {
-          this.handlers.forEach((handler) => {
-            handler(e);
-          });
-        });
+        };
       }
-}
 
 
 const Distributor = new DataDistributor();
-export {DataPoint, DataDistributor};
+export {DataPoint, Distributor};
