@@ -116,6 +116,7 @@ export default function App() {
         <Route path='/CreateAccount' element={<CreateAccount
             username={username}
             authState={authState}
+            setAnonymous={setAnonymous}
             onAuthChange={(username, authState) => {
                 setAuthState(authState);
                 setUserName(username);
