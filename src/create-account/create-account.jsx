@@ -10,7 +10,7 @@ export function CreateAccount(props) {
     const [username, setUserName] = React.useState(props.username);
     const [password, setPassword] = React.useState('');
     const [passwordVerify, setPasswordVerify] = React.useState('');
-    const [userVerify, setUserVerify] = React.useState(null);
+    const [error, setError] = React.useState(null);
 
     const navigate = useNavigate()
     useEffect( () =>{ 
@@ -51,7 +51,7 @@ export function CreateAccount(props) {
             onLogin(username);
           } else {
             const body = await response.json();
-            setUserVerify(body);
+            setError(body.msg);
           }
         }
       
@@ -65,7 +65,7 @@ export function CreateAccount(props) {
                         <Form.Label>Username</Form.Label>
                         <Form.Control type='text' placeholder="username" value={username} onChange={(u) => setUserName(u.target.value)}></Form.Control>
                         <Form.Text>This is the name people will see associated with your surveys.</Form.Text>
-                        <ErrorHandler error={userVerify}/>
+                        <ErrorHandler error={error}/>
                     </Form.Group>
                     <Form.Group className='mb-3'>
                         <Form.Label>Password</Form.Label>

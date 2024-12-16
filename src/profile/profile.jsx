@@ -30,7 +30,12 @@ export function Profile(props){
         });
         if (!response.ok) {
             const broken = await response.json();
-            setError(broken.message);
+            
+            if (broken.message === 'Unauthorized') {
+                setError('Could not verify information. Please sign out and sign in again.')
+            } else {
+                setError(broken.message);
+            }
             return;
         }
     }

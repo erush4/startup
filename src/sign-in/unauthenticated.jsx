@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 export function Unauthenticated(props){
   const [username, setUserName] = React.useState(props.username);
   const [password, setPassword] = React.useState('');
-  const [userVerify, setUserVerify] = React.useState(null);
+  const [error, setError] = React.useState(null);
 
 async function loginUser() {
     const response = await fetch('/api/auth/signin',{
@@ -28,11 +28,17 @@ async function loginUser() {
             const anonData = await anonCall.json()
             props.onLogin(username, anonData.anonymous);
             localStorage.setItem('anonymous', anonData.anonymous)
-        } else {
-            await response.json()
-            setUserVerify(response);
+        } else if (!response.ok) {
+            const broken = await response.json();
+            
+            if (broken.message === 'Unauthorized') {
+                setError('Incorrect username or password.')
+            } else {
+                setError(broken.message);
+            }
+            return;
         }
-    }
+}
 
     return (
         <main className="container">
@@ -52,7 +58,7 @@ async function loginUser() {
                 <div className="row">
                     <Button className="sign-in-button" variant='primary' onClick={() => loginUser()} disabled={!username || !password}>Sign In</Button>
                 </div>
-                <ErrorHandler error={userVerify}/>
+                <ErrorHandler error={error}/>
             </div> 
             <p id="createLink">Don't have an account? Create one <Link to="/CreateAccount">here</Link>
 </p>

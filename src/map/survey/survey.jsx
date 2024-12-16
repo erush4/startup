@@ -4,6 +4,7 @@ import { APIProvider, Map , AdvancedMarker, useAdvancedMarkerRef, useMap} from '
 import { apikey } from '../mapConfig';
 import { Circle } from './circle';
 import './survey.css'
+import { ErrorHandler } from '../../error-handler/error-handler';
 
 export function Survey (props){    
     const [sliderValue, setSliderValue] = useState(5);
@@ -14,6 +15,7 @@ export function Survey (props){
         setSliderValue(e.target.value);
         props.setValue(e.target.value);
     };
+    const [error, setError] = useState(null);
     
     function MapController(props){
         const map = useMap();
@@ -59,7 +61,7 @@ export function Survey (props){
                 props.setFetching(false)
             },
             (error) => {
-                console.error('Error getting geolocation:', error);
+                setError(error.message);
                 props.setFetching(false);
             }
         );
@@ -80,6 +82,7 @@ export function Survey (props){
     <Form>
     <Form.Group >
     <h6 className='mapInstruct'>Drag the marker to select your location on the map:</h6>
+    <ErrorHandler error={error}/>
         <div className='surveyMap'>
         <Button className='pickLocation' onClick={() => setLocation()} disabled={props.fetching}>
             Use My Device's Location 
