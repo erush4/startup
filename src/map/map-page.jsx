@@ -10,6 +10,7 @@ import { apikey } from './mapConfig';
 import { Heatmap } from './heatmap';
 import { useNavigate } from 'react-router-dom';
 import { AuthState } from '../sign-in/authState';
+import { ErrorHandler } from '../error-handler/error-handler';
 
 export function MapPage(props) {
     const [username, setUserName] = useState(props.username);
@@ -17,6 +18,7 @@ export function MapPage(props) {
     const [value, setValue] = useState(5);
     const [dataPoints, setDataPoints] = useState([]);
     const[fetching, setFetching] = useState(false);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate()
     //if not signed in, reroute to signin page
@@ -37,11 +39,21 @@ export function MapPage(props) {
         fetch('/api/data',{
             method: 'GET'
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok){
+                    if (response.status === 401) {
+                        throw new Error('Unauthorized: please sign out and sign in again');
+                    } else {
+                        throw new Error('response was not ok')
+                    }
+                }
+                return response.json()
+            })
             .then((data) => {
                 setDataPoints(data)
             })
             .catch((error) => {
+                setError(error.message);
                 console.error('Error fetching data:', error);
             });
     }, []);
@@ -68,17 +80,28 @@ export function MapPage(props) {
             headers: { 'content-type': 'application/json' },
             body:JSON.stringify(datapoint)
         })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok){
+                    if (response.status === 401) {
+                        throw new Error('Unauthorized: please sign out and sign in again.');
+                    } else {
+                        throw new Error('response was not ok');
+                    }
+                }
+                return response.json();
+            })
             .then((data) => {
                 setDataPoints(data);
             })
             .catch((error) => {
+                setError(error.message);
                 console.error('Error adding data:', error);
             });
     }
 
     return (
         <main className="container-fluid">
+            <ErrorHandler error={error} />
             <div id="map">
                 <button id="surveyButton" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#surveyModal">
                     Report Lot Conditions
@@ -104,10 +127,11 @@ export function MapPage(props) {
                         <div className="modal-body">
                             <Survey setValue={setValue} setLocation={setLocation} setFetching={setFetching} fetching={fetching}/>
                             <div className="cont">
-                                <Button variant="success" className="submitSurvey" disabled={fetching} onClick={() => addData()} data-bs-dismiss="modal">
+                                <Button variant="success" className="submitSurvey" disabled={fetching || error} onClick={() => addData()} data-bs-dismiss={!error ? "modal" : ""}>
                                     Submit
                                 </Button>
                             </div>
+                            <ErrorHandler error = {error}/>
                         </div>
                     </div>
                 </div>
